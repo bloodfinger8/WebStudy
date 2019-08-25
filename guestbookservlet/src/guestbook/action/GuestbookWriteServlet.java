@@ -43,7 +43,7 @@ public class GuestbookWriteServlet extends HttpServlet {
 		if(su == 1) {
 			out.println(su + "등록이 되었습니다 ");
 			out.println("<br><br>");
-			out.println("<input type='button' value = '글목록' onclick=location.href='/guestbookservlet/GuestbookListServlet'>");
+			out.println("<input type='button' value = '글목록' onclick=location.href='/guestbookservlet/GuestbookListServlet?pg=1'>");
 		}
 		else
 			out.println("등록 실패");
