@@ -8,7 +8,7 @@
 </head>
 <body>
 
-<form name="writeForm" method="post" action="http://localhost:8080/memberJSP/member/write.jsp">
+	<form name="writeForm" method="post" action="write.jsp">
 		<table border="1" cellspacing="0" cellpadding="5">
 			<tr>
 				<th width="80">이름</th>
@@ -16,7 +16,10 @@
 			</tr>
 			<tr>
 				<th>아이디</th>
-				<td><input type="text"  name="id"></td>
+				<td><input type="text"  name="id">
+				<input type="button" value="중복체크" onclick="checkId()">
+				<input type="hidden" name="check" value="">
+				</td>
 			</tr>
 			<tr>
 				<th>비밀번호</th>
@@ -66,15 +69,16 @@
 			<tr>
 				<td><input type="text" name="addr2" id="daum_addr2" placeholder="상세주소" size="40"></td>
 			</tr>
-
+ 
 			<tr>
 				<th colspan="2" align="center">
-				<input type="submit"value="회원가입"> 
+				<input type="button"value="회원가입" onclick="checkWrite()"> 
 				<input type="reset" value="다시작성">
 				</th>
 			</tr>
 		</table>
 	</form>
-
 </body>
+<script src="http://localhost:8080/memberJSP/js/member.js" type="text/javascript"> </script>
+
 </html>

@@ -10,6 +10,8 @@
 </head>
 <body>
 <%
+request.setCharacterEncoding("UTF-8");
+
 String name = request.getParameter("name");
 String id = request.getParameter("id");
 String pwd = request.getParameter("pwd");
@@ -43,7 +45,10 @@ int su = memberDAO.write(memberDTO);
 %>
 
 <%if(su == 1){%>
-	<%=su%>건 회원등록 되었습니다. 
+	<%=su%>건 회원등록 되었습니다.
+	<br><br>
+	<input type="button" value="로그인" onclick=location.href='loginForm.jsp'>
+	
 <%} else{%>
 	회원등록에 실패했습니다.
 <%}%>

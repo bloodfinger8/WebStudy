@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import member.bean.MemberDTO;
 
@@ -79,22 +80,53 @@ public class MemberDAO {
 		return su;
 	}
 	
-	public String log(MemberDTO memberDTO) {
-		String name = null;
+//	public String log(MemberDTO memberDTO) {
+//		String name = null;
+//		getConnection();
+//		String sql = "select name from members where id =? and pwd = ?";
+//		try {
+//			pstmt = conn.prepareStatement(sql);
+//			pstmt.setString(1, memberDTO.getId());
+//			pstmt.setString(2, memberDTO.getPwd());
+//			
+//			rs = pstmt.executeQuery();
+//			while (rs.next()) {
+//				name = rs.getString("name");
+//			}
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		} finally {
+//			try {
+//				if (rs != null)
+//					rs.close();
+//				if (pstmt != null)
+//					pstmt.close();
+//				if (conn != null)
+//					conn.close();
+//			} catch (SQLException e) {
+//				e.printStackTrace();
+//			}
+//		}
+//
+//		return name;
+//	}
+	
+	
+	public boolean isExistId(String id){
+		boolean exist = false;
 		getConnection();
-		String sql = "select name from members where id =? and pwd = ?";
+		String sql = "select * from members where id = ?";
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, memberDTO.getId());
-			pstmt.setString(2, memberDTO.getPwd());
+			pstmt.setString(1, id);
 			
 			rs = pstmt.executeQuery();
-			while (rs.next()) {
-				name = rs.getString("name");
+			if(rs.next()) {
+				exist=true;
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-		} finally {
+		}finally {
 			try {
 				if (rs != null)
 					rs.close();
@@ -106,7 +138,79 @@ public class MemberDAO {
 				e.printStackTrace();
 			}
 		}
-
+		
+		
+		
+		return exist;
+	}
+	public String loginCheck(String id, String pwd) {
+		String name = null;
+		getConnection();
+		String sql = "select * from members where id = ? and pwd=?";
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, id);
+			pstmt.setString(2, pwd);
+			
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				name=rs.getString("name");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if (rs != null)
+					rs.close();
+				if (pstmt != null)
+					pstmt.close();
+				if (conn != null)
+					conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
 		return name;
 	}
+	
+	public MemberDTO callVal(String id, String pwd) {
+		MemberDTO memberDTO = new MemberDTO();
+		getConnection();
+		String sql = "select * from members where id = ? and pwd=?";
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, id);
+			pstmt.setString(2, pwd);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				memberDTO.setName(rs.getString("name"));
+				memberDTO.setId(rs.getString("id"));
+				memberDTO.setGender(rs.getString("gender"));
+				memberDTO.setEmail1(rs.getString("email1"));
+				memberDTO.setEmail2(rs.getString("email2"));
+				memberDTO.setTel1(rs.getString("tel1"));
+				memberDTO.setTel2(rs.getString("tel2"));
+				memberDTO.setTel3(rs.getString("tel3"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if (rs != null)
+					rs.close();
+				if (pstmt != null)
+					pstmt.close();
+				if (conn != null)
+					conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return memberDTO;
+	}
+	
+	
+	
 }
