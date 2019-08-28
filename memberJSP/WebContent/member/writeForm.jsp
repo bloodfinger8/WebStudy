@@ -79,6 +79,6 @@
 		</table>
 	</form>
 </body>
-<script src="http://localhost:8080/memberJSP/js/member.js" type="text/javascript"> </script>
+<script src="../js/member.js" type="text/javascript"> </script>
 
 </html>

@@ -27,5 +27,5 @@
 		</table>
 </form>
 </body>
-<script src="http://localhost:8080/memberJSP/js/login.js" type="text/javascript"> </script>
+<script src="../js/login.js" type="text/javascript"> </script>
 </html>

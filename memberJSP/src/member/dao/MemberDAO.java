@@ -6,8 +6,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 import member.bean.MemberDTO;
+import member.bean.ZipcodeDTO;
 
 public class MemberDAO {
 	private static MemberDAO instance;
@@ -19,6 +21,7 @@ public class MemberDAO {
 	private Connection conn;
 	private PreparedStatement pstmt;
 	private ResultSet rs;
+	
 	
 	public MemberDAO() {
 		try {
@@ -174,14 +177,14 @@ public class MemberDAO {
 		return name;
 	}
 	
-	public MemberDTO callVal(String id, String pwd) {
+	public MemberDTO getMember(String id) {
+		
 		MemberDTO memberDTO = new MemberDTO();
 		getConnection();
-		String sql = "select * from members where id = ? and pwd=?";
+		String sql = "select * from members where id = ?";
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, id);
-			pstmt.setString(2, pwd);
 			rs = pstmt.executeQuery();
 			
 			if(rs.next()) {
@@ -193,6 +196,9 @@ public class MemberDAO {
 				memberDTO.setTel1(rs.getString("tel1"));
 				memberDTO.setTel2(rs.getString("tel2"));
 				memberDTO.setTel3(rs.getString("tel3"));
+				memberDTO.setZipcode(rs.getString("zipcode"));
+				memberDTO.setAddr1(rs.getString("addr1"));
+				memberDTO.setAddr2(rs.getString("addr2"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -212,5 +218,71 @@ public class MemberDAO {
 	}
 	
 	
+	public List<ZipcodeDTO> getZipcodeList(String sido, String sigungu, String roadname){
+		List<ZipcodeDTO> list = new ArrayList<ZipcodeDTO>();
+		getConnection();
+		String sql = "select * from newzipcode where sido like ? AND nvl(sigungu,'0') like ? AND roadname like ?";
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, "%"+sido+"%");
+			pstmt.setString(2, "%"+sigungu+"%");
+			pstmt.setString(3, "%"+roadname+"%");
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				ZipcodeDTO zipcodeDTO = new ZipcodeDTO();
+				zipcodeDTO.setZipcode(rs.getString("zipcode"));
+				zipcodeDTO.setSido(rs.getString("sido"));
+				
+				zipcodeDTO.setSigungu(rs.getString("sigungu")==null ? "" : rs.getString("sigungu"));
+				
+				zipcodeDTO.setYubmyundong(rs.getString("yubmyundong"));
+				zipcodeDTO.setRi(rs.getString("ri")==null ? "" : rs.getString("ri"));
+				zipcodeDTO.setRoadname(rs.getString("roadname"));
+				zipcodeDTO.setBuildingname(rs.getString("buildingname")==null ? "" : rs.getString("buildingname"));
+				list.add(zipcodeDTO);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			list = null;
+		}finally {
+			try {
+				if (rs != null)
+					rs.close();
+				if (pstmt != null)
+					pstmt.close();
+				if (conn != null)
+					conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return list;
+	}
+	
+	
+	public int modify(MemberDTO memberDTO) {
+		int su =0;
+		getConnection();
+		String sql = "update members set name = ? , pwd = ? , logtime=sysdate";
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, name);
+			pstmt.setString(2, pwd);
+			su = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(pstmt!=null) pstmt.close();
+				if(conn!=null) conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return su;
+	}
 	
 }
