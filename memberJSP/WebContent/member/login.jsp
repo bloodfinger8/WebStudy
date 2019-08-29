@@ -1,3 +1,4 @@
+<%@page import="java.net.URLEncoder"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="member.dao.MemberDAO"%>
 <%@page import="member.bean.MemberDTO"%>
@@ -17,18 +18,24 @@ String name = memberDAO.loginCheck(id, pwd);
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title></title>
 </head>
 <body>
-<form method="post" action="modifyForm.jsp">
+<form name="logindivForm" method="post" action="">
+<img src="../image/jspImg.png" width="70" height="70" 
+onclick="location.href='../main/index.jsp'" style="cursor:pointer;"></img>
+
 <%if(name==null){%>
-	로그인 실패
+	<%
+	response.sendRedirect("loginFail.jsp");
+	%>
   <%}else{%>
-	<%=name%>님 로그인 하였습니다
-	<br><br>
-	<input type="hidden" name="id" value="<%=id%>">
-	<input type="button" value="로그아웃">
-	<input type="submit" value="회원정보수정">
+	<%
+	//request.getSession().setAttribute("name", name);
+	//response.sendRedirect("loginOk.jsp");
+	
+	response.sendRedirect("loginOk.jsp?name=" + URLEncoder.encode(name, "UTF-8"));// 주소창에 name을 인코딩,암호화
+	%>
 <%}%>
 </form>
 </body>

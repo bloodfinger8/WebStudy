@@ -4,24 +4,23 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>login JSP</title>
+<title>Insert title here</title>
 </head>
 <body>
-
-<form name="loginForm" method="post" action="login.jsp">
+<form name="boardWriteForm" method="post" action="boardWrite.jsp">
 		<table border="1" cellspacing="0" cellpadding="5">
 			<tr>
-				<th>아이디</th>
-				<td><input type="text" name="id"></td>
+				<th>제목</th>
+				<td><input type="text" name="subject"></td>
 			</tr>
 			<tr>
-				<th>비밀번호</th>
-				<td><input type="password" name="pwd"></td>
+				<th>내용</th>
+				<td><textarea name="content" rows="10"></textarea></td>
 			</tr>
 			<tr>
 				<th colspan="2" align="center">
-				<input type="button"value="로그인" onclick="checkLogin()"> 
-				<input type="button" value="회원가입" onclick="location.href='writeForm.jsp'">
+				<input type="button"value="글쓰기" onclick="checkBoardWrite()"> 
+				<input type="reset" value="다시작성">
 				</th>
 			</tr>
 		</table>

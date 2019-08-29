@@ -264,13 +264,37 @@ public class MemberDAO {
 	public int modify(MemberDTO memberDTO) {
 		int su =0;
 		getConnection();
-		String sql = "update members set name = ? , pwd = ? , logtime=sysdate";
+		String sql = "update members set name = ?, pwd = ? , gender =?, email1=?, email2=?, tel1=?, tel2=?, tel3=?, zipcode=?,  addr1=?, addr2=?, logtime=sysdate where id = ?";
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, name);
-			pstmt.setString(2, pwd);
+			pstmt.setString(1, memberDTO.getName());
+			pstmt.setString(2, memberDTO.getPwd());
+			pstmt.setString(3, memberDTO.getGender());
+			pstmt.setString(4, memberDTO.getEmail1());
+			pstmt.setString(5, memberDTO.getEmail2());
+			pstmt.setString(6, memberDTO.getTel1());
+			pstmt.setString(7, memberDTO.getTel2());
+			pstmt.setString(8, memberDTO.getTel3());
+			pstmt.setString(9, memberDTO.getZipcode());
+			pstmt.setString(10, memberDTO.getAddr1());
+			pstmt.setString(11, memberDTO.getAddr2());
+			pstmt.setString(12, memberDTO.getId());
 			su = pstmt.executeUpdate();
 			
+			if(rs.next()) {
+				memberDTO.setName(rs.getString("name"));
+				memberDTO.setId(rs.getString("id"));
+				memberDTO.setPwd(rs.getString("pwd"));
+				memberDTO.setGender(rs.getString("gender"));
+				memberDTO.setEmail1(rs.getString("email1"));
+				memberDTO.setEmail2(rs.getString("email2"));
+				memberDTO.setTel1(rs.getString("tel1"));
+				memberDTO.setTel2(rs.getString("tel2"));
+				memberDTO.setTel3(rs.getString("tel3"));
+				memberDTO.setZipcode(rs.getString("zipcode"));
+				memberDTO.setAddr1(rs.getString("addr1"));
+				memberDTO.setAddr2(rs.getString("addr2"));
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}finally {

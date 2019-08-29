@@ -25,7 +25,7 @@ String tel1 = memberDTO.getTel1();
 <form name="modifyForm" method="post" action="modify.jsp">
 		<table border="1" cellspacing="0" cellpadding="5">
 			<tr>
-				<th width="80">재우바보</th>
+				<th width="80">이름</th>
 				<td width="320"><input type="text" name="name" value="<%=memberDTO.getName()%>"></td>
 			</tr>
 			<tr>
@@ -84,7 +84,8 @@ String tel1 = memberDTO.getTel1();
  
 			<tr>
 				<th colspan="2" align="center">
-				<input type="button"value="회원수정" onclick="checkModify()"> 
+				<input type="button" value="회원수정" onclick="checkModify()"> 
+				<input type="reset" value="다시작성">
 				</th>
 			</tr>
 		</table>

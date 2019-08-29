@@ -5,8 +5,10 @@
     
 <%
 request.setCharacterEncoding("UTF-8");
+
 MemberDTO memberDTO = new MemberDTO();
 memberDTO.setName(request.getParameter("name"));
+memberDTO.setId(request.getParameter("id"));
 memberDTO.setPwd(request.getParameter("pwd"));
 memberDTO.setGender(request.getParameter("gender"));
 memberDTO.setEmail1(request.getParameter("email1"));
@@ -19,7 +21,7 @@ memberDTO.setAddr1(request.getParameter("addr1"));
 memberDTO.setAddr2(request.getParameter("addr2"));
 
 MemberDAO memberDAO = MemberDAO.getInstance();
-int ck = memberDAO.modify(memberDTO);
+int su = memberDAO.modify(memberDTO);
 %>    
     
 <!DOCTYPE html>
@@ -29,12 +31,11 @@ int ck = memberDAO.modify(memberDTO);
 <title>Insert title here</title>
 </head>
 <body>
-<form method="post" action="">
-<%if(ck==0){%>
+<%if(su==0){%>
 	회원정보 수정 실패
   <%}else{%>
 	회원정보 수정이 되었습니다.
 <%}%>
-</form>
+
 </body>
 </html>

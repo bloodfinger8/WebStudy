@@ -52,23 +52,32 @@ function checkPost(){ //우편주소 확인
 }
 
 function checkPostClose(zipcode,address){
-	//var na = opener.document.getElementsByTagName('form');
-	//alert(na);
-	//opener.writeForm.zipcode.value = zipcode;
-	opener.document.getElementById('daum_zipcode').value = zipcode;
-	//opener.writeForm.addr1.value = address;
-	opener.document.getElementById('daum_addr1').value = address;
-	window.close();
-	opener.document.getElementById('daum_addr2').focus();
+//	opener.document.getElementById('daum_zipcode').value = zipcode;
+//	opener.document.getElementById('daum_addr1').value = address;
+//	window.close();
+//	opener.document.getElementById('daum_addr2').focus();
 	
+	opener.document.forms[0].zipcode.value = zipcode;
+	opener.document.forms[0].addr1.value = address;
+	window.close();
+	opener.document.forms[0].addr2.focus();
+}
+
+function checkLogin() { //유효성 검사 
+	if (document.loginForm.pwd.value == "") 
+		alert("비밀번호를 입력하시오");
+	else if (document.loginForm.id.value == "") 
+		alert("아이디를 입력하시오");
+	else 
+		document.loginForm.submit();
 }
 
 function checkModify(){
-	if (document.modifyForm.pwd.value == ""){ 
-		alert("비밀번호를 입력하시오");
+	if (document.modifyForm.id.value == ""){ 
+		alert("이름을 입력하시오");
 	}
-	else if (document.modifyForm.repwd.value == ""){
-		alert("비밀번호확인을 입력하시오");
+	else if (document.modifyForm.pwd.value == ""){
+		alert("비밀번호 입력하시오");
 	}
 	else if ((document.modifyForm.pwd.value != document.modifyForm.repwd.value)){
 		alert("비밀번호 불일치 합니다.");
@@ -76,8 +85,17 @@ function checkModify(){
 	else {
 		document.modifyForm.submit();
 		
-//		window.open("http://localhost:8080/memberJSP/member/modify.jsp",
-//				"",
-//				"width=300 height=100 left=250 top=200");
+	}
+}
+
+function checkBoardWrite(){
+	if (document.boardWriteForm.subject.value == ""){ 
+		alert("제목을 입력하시오");
+	}
+	else if (document.boardWriteForm.content.value == ""){
+		alert("비밀번호 입력하시오");
+	}
+	else {
+		document.boardWriteForm.submit();
 	}
 }
