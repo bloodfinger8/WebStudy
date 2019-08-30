@@ -1,0 +1,20 @@
+@charset "UTF-8";
+
+body{
+  margin:0;
+  padding: 0;
+  font-family: sans-serif;
+  //background: #33495e;
+}
+table{
+  width: 700px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  text-align: center;
+}
+td{
+	
+	text-align:center;
+}

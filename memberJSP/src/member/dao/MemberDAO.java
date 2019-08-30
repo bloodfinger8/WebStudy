@@ -83,36 +83,46 @@ public class MemberDAO {
 		return su;
 	}
 	
-//	public String log(MemberDTO memberDTO) {
-//		String name = null;
-//		getConnection();
-//		String sql = "select name from members where id =? and pwd = ?";
-//		try {
-//			pstmt = conn.prepareStatement(sql);
-//			pstmt.setString(1, memberDTO.getId());
-//			pstmt.setString(2, memberDTO.getPwd());
-//			
-//			rs = pstmt.executeQuery();
-//			while (rs.next()) {
-//				name = rs.getString("name");
-//			}
-//		} catch (SQLException e) {
-//			e.printStackTrace();
-//		} finally {
-//			try {
-//				if (rs != null)
-//					rs.close();
-//				if (pstmt != null)
-//					pstmt.close();
-//				if (conn != null)
-//					conn.close();
-//			} catch (SQLException e) {
-//				e.printStackTrace();
-//			}
-//		}
-//
-//		return name;
-//	}
+	public MemberDTO log(String id, String pwd) {
+		MemberDTO memberDTO = new MemberDTO();
+		getConnection();
+		String sql = "select * from members where id =? and pwd = ?";
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, memberDTO.getId());
+			pstmt.setString(2, memberDTO.getPwd());
+			
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				memberDTO.setName(rs.getString("name"));
+				memberDTO.setId(rs.getString("id"));
+				memberDTO.setPwd(rs.getString("pwd"));
+				memberDTO.setGender(rs.getString("gender"));
+				memberDTO.setEmail1(rs.getString("email1"));
+				memberDTO.setEmail2(rs.getString("email2"));
+				memberDTO.setTel1(rs.getString("tel1"));
+				memberDTO.setTel2(rs.getString("tel2"));
+				memberDTO.setTel3(rs.getString("tel3"));
+				memberDTO.setZipcode(rs.getString("zipcode"));
+				memberDTO.setAddr1(rs.getString("addr1"));
+				memberDTO.setAddr2(rs.getString("addr2"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (rs != null)
+					rs.close();
+				if (pstmt != null)
+					pstmt.close();
+				if (conn != null)
+					conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return memberDTO;
+	}
 	
 	
 	public boolean isExistId(String id){
@@ -178,7 +188,6 @@ public class MemberDAO {
 	}
 	
 	public MemberDTO getMember(String id) {
-		
 		MemberDTO memberDTO = new MemberDTO();
 		getConnection();
 		String sql = "select * from members where id = ?";
@@ -308,5 +317,6 @@ public class MemberDAO {
 		
 		return su;
 	}
+	
 	
 }

@@ -11,11 +11,11 @@
 		<table border="1" cellspacing="0" cellpadding="5">
 			<tr>
 				<th>제목</th>
-				<td><input type="text" name="subject"></td>
+				<td><input type="text" name="subject" size="50"></td>
 			</tr>
 			<tr>
 				<th>내용</th>
-				<td><textarea name="content" rows="10"></textarea></td>
+				<td><textarea name="content" rows="13" cols="50"></textarea></td>
 			</tr>
 			<tr>
 				<th colspan="2" align="center">
@@ -26,5 +26,5 @@
 		</table>
 </form>
 </body>
-<script src="../js/member.js" type="text/javascript"> </script>
+<script src="../js/board.js" type="text/javascript"> </script>
 </html>

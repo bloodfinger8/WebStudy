@@ -10,8 +10,12 @@ request.setCharacterEncoding("UTF-8");
 String id = request.getParameter("id");
 String pwd = request.getParameter("pwd");
 
+MemberDTO memberDTO = new MemberDTO();
 MemberDAO memberDAO = MemberDAO.getInstance();
 String name = memberDAO.loginCheck(id, pwd);
+memberDTO = memberDAO.getMember(id);
+
+String email = memberDTO.getEmail1() + "@" + memberDTO.getEmail2();
 %>
 
 <!DOCTYPE html>
@@ -22,8 +26,6 @@ String name = memberDAO.loginCheck(id, pwd);
 </head>
 <body>
 <form name="logindivForm" method="post" action="">
-<img src="../image/jspImg.png" width="70" height="70" 
-onclick="location.href='../main/index.jsp'" style="cursor:pointer;"></img>
 
 <%if(name==null){%>
 	<%
@@ -31,10 +33,23 @@ onclick="location.href='../main/index.jsp'" style="cursor:pointer;"></img>
 	%>
   <%}else{%>
 	<%
-	//request.getSession().setAttribute("name", name);
-	//response.sendRedirect("loginOk.jsp");
+	//response.sendRedirect("loginOk.jsp?name=" + URLEncoder.encode(name, "UTF-8"));// 주소창에 name을 인코딩,암호화
 	
-	response.sendRedirect("loginOk.jsp?name=" + URLEncoder.encode(name, "UTF-8"));// 주소창에 name을 인코딩,암호화
+	//cookie
+	Cookie cookie = new Cookie("memName",name);//Cookie 생성 
+	cookie.setMaxAge(30*60); //cookie 초단위 수명 , 30분
+	response.addCookie(cookie);//cilent 저장
+	
+	Cookie cookie2 = new Cookie("memId",id);
+	cookie2.setMaxAge(30*60);
+	response.addCookie(cookie2);
+	//session
+	//HttpSession session = request.getSession();
+	session.setAttribute("memName", name);
+	session.setAttribute("memId", id);
+	session.setAttribute("memEmail", email);
+	//request.getSession().setAttribute("name", name);
+	response.sendRedirect("loginOk.jsp");
 	%>
 <%}%>
 </form>
