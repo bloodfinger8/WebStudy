@@ -13,3 +13,13 @@ function checkBoardWrite(){
 		document.boardWriteForm.submit();
 	}
 }
+
+
+function isLogin(id,seq){
+	if(id=="null"){
+		alert("로그인 먼저 해주세요");
+	}else{
+		location.href="../board/boardView.jsp?seq="+seq;
+	}
+	
+}

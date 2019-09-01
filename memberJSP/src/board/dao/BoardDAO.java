@@ -160,9 +160,50 @@ public class BoardDAO {
 				e.printStackTrace();
 			}
 		}
-		
-		
 		return totalA;
+	}
+	
+	public BoardDTO seletedListInfo(int seq) {
+		BoardDTO boardDTO = new BoardDTO();
+		getConnection();
+		String sql= "select * from board where seq= ?";
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, seq);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				boardDTO.setSeq(rs.getInt("seq"));
+				boardDTO.setId(rs.getString("id"));
+				boardDTO.setName(rs.getString("name"));
+				boardDTO.setEmail(rs.getString("email"));
+				boardDTO.setSubject(rs.getString("subject"));
+				boardDTO.setContent(rs.getString("content"));
+				boardDTO.setRef(rs.getInt("ref"));
+				boardDTO.setLev(rs.getInt("lev"));
+				boardDTO.setStep(rs.getInt("step"));
+				boardDTO.setPseq(rs.getInt("pseq"));
+				boardDTO.setReply(rs.getInt("reply"));
+				boardDTO.setHit(rs.getInt("hit"));
+				boardDTO.setLogtime(rs.getString("logtime"));
+			}
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if (rs != null)
+					rs.close();
+				if (pstmt != null)
+					pstmt.close();
+				if (conn != null)
+					conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return boardDTO;
 	}
 	
 

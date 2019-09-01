@@ -12,7 +12,6 @@ request.setCharacterEncoding("UTF-8");
 String subject = request.getParameter("subject");
 String content = request.getParameter("content");
 
-
 String id = (String)session.getAttribute("memId");
 String name =(String)session.getAttribute("memName");
 String email = (String)session.getAttribute("memEmail");

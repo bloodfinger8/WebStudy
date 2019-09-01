@@ -15,8 +15,7 @@ List<BoardDTO> list = boardDAO.writeAll(startNum, endNum);
 int totalA = boardDAO.getTotalA(); //총 게시물 갯수
 int totalP = ((totalA-1)/5) +1; // 5개로 나눈다
 
-System.out.println("totalA : " +totalA + " totalP : " +totalP );
-//System.out.println(list.size());
+String id = (String)session.getAttribute("memId"); //로그인체크용
 %>
     
     
@@ -31,6 +30,7 @@ onclick="location.href='../main/index.jsp'" style="cursor:pointer;"></img>
 </head>
 <body>
 <%if(list != null) {%>
+<form name="boardListForm" method="post" action="boardView.jsp">
 <table border="1" frame="hsides" rules="rows" cellspacing="0" cellpadding="10">
 			<tr>
 				<td>글번호</td>
@@ -42,12 +42,15 @@ onclick="location.href='../main/index.jsp'" style="cursor:pointer;"></img>
 			<%for(BoardDTO boardDTO : list){%>
 			<tr>
 				<td><%=boardDTO.getSeq()%></td>
-				<td><a href="./boardView.jsp"><%=boardDTO.getSubject()%></a></td>
+				<td><a href="#" onclick="isLogin('<%=id%>','<%=boardDTO.getSeq()%>')"><%=boardDTO.getSubject()%></a></td>
 				<td><%=boardDTO.getId()%></td>
 				<td><%=boardDTO.getLogtime()%></td>
 				<td><%=boardDTO.getHit()%></td>
 			</tr>
 			<%}%>
+			<tr>
+			<td><input type="button" value="글쓰기" onclick="location.href='boardWriteForm.jsp'"> </td>
+			</tr>
 			<tr >
 			<td colspan="5">
 			<%for(int j=1; j<=totalP; j++) {%>
@@ -56,8 +59,10 @@ onclick="location.href='../main/index.jsp'" style="cursor:pointer;"></img>
 			</td>
 			</tr>
 	</table>
+</form>
 <%} else{%>
 list 비어있음
 <%} %>
 </body>
+<script src="../js/board.js" type="text/javascript"> </script>
 </html>
