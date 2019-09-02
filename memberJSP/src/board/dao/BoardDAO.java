@@ -1,58 +1,43 @@
 package board.dao;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.sql.DataSource;
+
 import board.bean.BoardDTO;
+import member.bean.MemberDTO;
 
 public class BoardDAO {
-	//private static BoardDAO instance;
-	private String driver = "oracle.jdbc.driver.OracleDriver";
-	private String url = "jdbc:oracle:thin:@localhost:1521:XE";
-	private String user = "system";
-	private String password = "oracle";
-	
 	private Connection conn;
 	private PreparedStatement pstmt;
 	private ResultSet rs;
-	
+	private DataSource ds;
 	
 	public BoardDAO() {
 		try {
-			Class.forName(driver);
-		} catch (ClassNotFoundException e) {
+			Context ctx = new InitialContext();
+			ds = (DataSource) ctx.lookup("java:comp/env/jdbc/oracle");//tomcat의 경우에만 java:comp/env/ 써줘야 한다
+			
+		} catch (NamingException e) {
 			e.printStackTrace();
 		}
 	}
-	
-	public void getConnection() {
-		try {
-			conn = DriverManager.getConnection(url,user,password);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-	}
-	
-//	public static BoardDAO getInstance(){
-//		if(instance == null){ 
-//			synchronized(MemberDAO.class){
-//				instance = new BoardDAO();	
-//			}
-//		}
-//		return instance;
-//	}
 	
 	
 	public int write(BoardDTO boardDTO) {
 		int su =0;
-		getConnection();
 		String sql = "insert into board values(seq_board.nextval,?,?,?,?,?,seq_board.currval,?,?,?,?,?,sysdate)";
 		try {
+			conn = ds.getConnection();
+			
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, boardDTO.getId());
 			pstmt.setString(2, boardDTO.getName());
@@ -86,13 +71,13 @@ public class BoardDAO {
 	
 	public List<BoardDTO> writeAll(int startNum,int endNum){
 		List<BoardDTO> list = new ArrayList<BoardDTO>();
-		getConnection();
 		String sql = "select * from " +
 				" (select rownum rn, tt.*" + 
 				" from (select seq,id,name,email,subject,content,ref,lev,step,pseq,reply,hit," + 
 				" to_char(logtime,'YYYY-MM-DD') as logtime from board order by ref desc, step asc)tt)" + 
 				" where rn>=? and rn <=?";
 		try {
+			conn = ds.getConnection();
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, startNum);
 			pstmt.setInt(2, endNum);
@@ -138,14 +123,16 @@ public class BoardDAO {
 	
 	public int getTotalA() {
 		int totalA=0;
-		getConnection();
 		String sql = "select count(*) from board ";
 		
 		try {
+			conn = ds.getConnection();
 			pstmt = conn.prepareStatement(sql);
 			rs = pstmt.executeQuery();
+			
 			rs.next();
 			totalA = rs.getInt(1);
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}finally {
@@ -165,9 +152,9 @@ public class BoardDAO {
 	
 	public BoardDTO seletedListInfo(int seq) {
 		BoardDTO boardDTO = new BoardDTO();
-		getConnection();
 		String sql= "select * from board where seq= ?";
 		try {
+			conn = ds.getConnection();
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, seq);
 			rs = pstmt.executeQuery();
@@ -206,5 +193,56 @@ public class BoardDAO {
 		return boardDTO;
 	}
 	
+	public int modify(BoardDTO boardDTO) {
+		int su =0;
+		String sql = "update board set subject=?,content=? where seq=?";
+		try {
+			conn = ds.getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, boardDTO.getSubject());
+			pstmt.setString(2, boardDTO.getContent());
+			pstmt.setInt(3, boardDTO.getSeq());
+			
+			su = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(pstmt!=null) pstmt.close();
+				if(conn!=null) conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return su;
+	}
+	
+	
+	public void boardHit(int bs) {
+		String sql = "update board set hit=hit+1 where seq=?";
+		try {
+			conn = ds.getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, bs);
+			
+			pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(pstmt!=null) pstmt.close();
+				if(conn!=null) conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+	
+	}
 
+	
+	
+	
+	
 }

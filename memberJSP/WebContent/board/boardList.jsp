@@ -1,3 +1,4 @@
+<%@page import="board.bean.BoardPaging"%>
 <%@page import="java.util.List"%>
 <%@page import="board.bean.BoardDTO"%>
 <%@page import="board.dao.BoardDAO"%>
@@ -5,25 +6,38 @@
     pageEncoding="UTF-8"%>
 <jsp:useBean id="boardDAO" class="board.dao.BoardDAO"/>
 <%
-request.setCharacterEncoding("UTF-8");
+	request.setCharacterEncoding("UTF-8");
+	int pg = Integer.parseInt(request.getParameter("pg"));
 
-int pg = Integer.parseInt(request.getParameter("pg"));
-int endNum = pg*5;
-int startNum = endNum-4;
+	int endNum = pg * 5;
+	int startNum = endNum - 4;
+	List<BoardDTO> list = boardDAO.writeAll(startNum, endNum);
+	//페이징처리
+	BoardPaging boardPaging = new BoardPaging();
+	int totalA = boardDAO.getTotalA(); //총 글수
+	boardPaging.setCurrentPage(pg);
+	boardPaging.setPageBlock(3);
+	boardPaging.setPageSize(5);
+	boardPaging.setTotalA(totalA);
+	boardPaging.makePagingHTML();
 
-List<BoardDTO> list = boardDAO.writeAll(startNum, endNum);
-int totalA = boardDAO.getTotalA(); //총 게시물 갯수
-int totalP = ((totalA-1)/5) +1; // 5개로 나눈다
+	String memId = "";
+	if (session.getAttribute("memId") != "null") //아이디가 널값일수도 있기때문에
+		memId = (String) session.getAttribute("memId"); //로그인체크용
 
-String id = (String)session.getAttribute("memId"); //로그인체크용
+	//쿠키
+	Cookie cookie = new Cookie("boardId",memId);//Cookie 생성 
+		cookie.setMaxAge(60*60*24); //하루
+		response.addCookie(cookie);//cilent 저장 
+		
 %>
-    
-    
+
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>게시글 리스트</title>
 <link rel="stylesheet" href="../css/boardList.css">
 <img src="../image/jspImg.png" width="70" height="70" 
 onclick="location.href='../main/index.jsp'" style="cursor:pointer;"></img>
@@ -42,26 +56,32 @@ onclick="location.href='../main/index.jsp'" style="cursor:pointer;"></img>
 			<%for(BoardDTO boardDTO : list){%>
 			<tr>
 				<td><%=boardDTO.getSeq()%></td>
-				<td><a href="#" onclick="isLogin('<%=id%>','<%=boardDTO.getSeq()%>')"><%=boardDTO.getSubject()%></a></td>
+				<td><a href="javascript:void(0)" id="subjectA" onclick="isLogin('<%=memId%>','<%=boardDTO.getSeq()%>',<%=pg%>)"><%=boardDTO.getSubject()%></a></td>
 				<td><%=boardDTO.getId()%></td>
 				<td><%=boardDTO.getLogtime()%></td>
 				<td><%=boardDTO.getHit()%></td>
 			</tr>
 			<%}%>
+			
 			<tr>
-			<td><input type="button" value="글쓰기" onclick="location.href='boardWriteForm.jsp'"> </td>
+			<td colspan="5"><input type="button" value="글쓰기" onclick="location.href='boardWriteForm.jsp'"> </td>
 			</tr>
+			
 			<tr >
-			<td colspan="5">
-			<%for(int j=1; j<=totalP; j++) {%>
-				<a href="./boardList.jsp?pg=<%=j%>">[<%=j%>]</a>
-			<%}%>
-			</td>
+			<%-- <td colspan="5">
+			<%=boardPaging.getPagingHTML()%>
+			</td> --%>
 			</tr>
 	</table>
+	<div style="float:left; padding-top:500px; width: 50px; ">
+	<img src="../image/jspImg.png" width="70" height="70" 
+	onclick="location.href='../main/index.jsp'" style="cursor:pointer;"></img>
+	</div>
+	<div style="float:left; padding-top:500px; width: 1320px;text-align:center; ">
+	<%=boardPaging.getPagingHTML()%>
+	</div>
+	
 </form>
-<%} else{%>
-list 비어있음
 <%} %>
 </body>
 <script src="../js/board.js" type="text/javascript"> </script>

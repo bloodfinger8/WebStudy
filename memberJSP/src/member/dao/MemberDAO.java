@@ -1,43 +1,39 @@
 package member.dao;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.sql.DataSource;
+
 import member.bean.MemberDTO;
 import member.bean.ZipcodeDTO;
 
 public class MemberDAO {
 	private static MemberDAO instance;
-	private String driver = "oracle.jdbc.driver.OracleDriver";
-	private String url = "jdbc:oracle:thin:@localhost:1521:XE";
-	private String user = "system";
-	private String password = "oracle";
 	
 	private Connection conn;
 	private PreparedStatement pstmt;
 	private ResultSet rs;
 	
+	private DataSource ds;
 	
-	public MemberDAO() {
+	public MemberDAO() { //naming service 핸드폰 번호 보다는 별명으로 
 		try {
-			Class.forName(driver);
-		} catch (ClassNotFoundException e) {
+			Context ctx = new InitialContext();
+			ds = (DataSource) ctx.lookup("java:comp/env/jdbc/oracle");//tomcat의 경우에만 java:comp/env/ 써줘야 한다
+			
+		} catch (NamingException e) {
 			e.printStackTrace();
 		}
 	}
 	
-	public void getConnection() {
-		try {
-			conn = DriverManager.getConnection(url,user,password);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-	}
 	
 	public static MemberDAO getInstance(){
 		if(instance == null){ 
@@ -50,9 +46,10 @@ public class MemberDAO {
 
 	public int write(MemberDTO memberDTO) {
 		int su =0;
-		getConnection();
 		String sql = "insert into members values(?,?,?,?,?,?,?,?,?,?,?,?,sysdate)";
 		try {
+			conn = ds.getConnection();
+			
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, memberDTO.getName());
 			pstmt.setString(2, memberDTO.getId());
@@ -85,9 +82,10 @@ public class MemberDAO {
 	
 	public MemberDTO log(String id, String pwd) {
 		MemberDTO memberDTO = new MemberDTO();
-		getConnection();
+		
 		String sql = "select * from members where id =? and pwd = ?";
 		try {
+			conn = ds.getConnection();
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, memberDTO.getId());
 			pstmt.setString(2, memberDTO.getPwd());
@@ -127,9 +125,9 @@ public class MemberDAO {
 	
 	public boolean isExistId(String id){
 		boolean exist = false;
-		getConnection();
 		String sql = "select * from members where id = ?";
 		try {
+			conn = ds.getConnection();
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, id);
 			
@@ -158,9 +156,9 @@ public class MemberDAO {
 	}
 	public String loginCheck(String id, String pwd) {
 		String name = null;
-		getConnection();
 		String sql = "select * from members where id = ? and pwd=?";
 		try {
+			conn = ds.getConnection();
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, id);
 			pstmt.setString(2, pwd);
@@ -189,9 +187,9 @@ public class MemberDAO {
 	
 	public MemberDTO getMember(String id) {
 		MemberDTO memberDTO = new MemberDTO();
-		getConnection();
 		String sql = "select * from members where id = ?";
 		try {
+			conn = ds.getConnection();
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, id);
 			rs = pstmt.executeQuery();
@@ -229,9 +227,9 @@ public class MemberDAO {
 	
 	public List<ZipcodeDTO> getZipcodeList(String sido, String sigungu, String roadname){
 		List<ZipcodeDTO> list = new ArrayList<ZipcodeDTO>();
-		getConnection();
 		String sql = "select * from newzipcode where sido like ? AND nvl(sigungu,'0') like ? AND roadname like ?";
 		try {
+			conn = ds.getConnection();
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, "%"+sido+"%");
 			pstmt.setString(2, "%"+sigungu+"%");
@@ -272,9 +270,9 @@ public class MemberDAO {
 	
 	public int modify(MemberDTO memberDTO) {
 		int su =0;
-		getConnection();
 		String sql = "update members set name = ?, pwd = ? , gender =?, email1=?, email2=?, tel1=?, tel2=?, tel3=?, zipcode=?,  addr1=?, addr2=?, logtime=sysdate where id = ?";
 		try {
+			conn = ds.getConnection();
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, memberDTO.getName());
 			pstmt.setString(2, memberDTO.getPwd());

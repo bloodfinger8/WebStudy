@@ -20,11 +20,5 @@ function isLogin(memId,seq,pg){
 	}else{
 		location.href="../board/boardView.jsp?seq="+seq+"&pg="+pg;
 	}
-}
-
-function checkModify(){
 	
-		document.modifyForm.submit();
-		
-
 }

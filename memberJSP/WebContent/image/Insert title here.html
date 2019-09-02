@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<!-- saved from url=(0057)http://localhost:8080/memberJSP/board/boardList.jsp?pg=1# -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<title>Insert title here</title>
+<link rel="stylesheet" href="./Insert title here_files/boardList.css">
+</head><body><img src="./Insert title here_files/jspImg.png" width="70" height="70" onclick="location.href=&#39;../main/index.jsp&#39;" style="cursor:pointer;">
+
+
+
+<form name="boardListForm" method="post" action="http://localhost:8080/memberJSP/board/boardView.jsp">
+<table border="1" frame="hsides" rules="rows" cellspacing="0" cellpadding="10">
+			<tbody><tr>
+				<td>글번호</td>
+				<td>제목</td>
+				<td>작성자</td>
+				<td>작성일</td>
+				<td>조회수</td>
+			</tr>
+			
+			<tr>
+				<td>16</td>
+				<td><a href="javascript:void(0)" id="subjectA" onclick="isLogin(&#39;didwodn82&#39;,&#39;16&#39;)">글쓰기</a></td>
+				<td>didwodn82</td>
+				<td>2019-09-02</td>
+				<td>0</td>
+			</tr>
+			
+			<tr>
+				<td>14</td>
+				<td><a href="javascript:void(0)" id="subjectA" onclick="isLogin(&#39;didwodn82&#39;,&#39;14&#39;)">글자수 체크</a></td>
+				<td>didwodn82</td>
+				<td>2019-09-01</td>
+				<td>0</td>
+			</tr>
+			
+			<tr>
+				<td>13</td>
+				<td><a href="javascript:void(0)" id="subjectA" onclick="isLogin(&#39;didwodn82&#39;,&#39;13&#39;)">줄췤</a></td>
+				<td>didwodn82</td>
+				<td>2019-09-01</td>
+				<td>0</td>
+			</tr>
+			
+			<tr>
+				<td>12</td>
+				<td><a href="javascript:void(0)" id="subjectA" onclick="isLogin(&#39;didwodn82&#39;,&#39;12&#39;)">자바스크립트 </a></td>
+				<td>didwodn82</td>
+				<td>2019-09-01</td>
+				<td>0</td>
+			</tr>
+			
+			<tr>
+				<td>11</td>
+				<td><a href="javascript:void(0)" id="subjectA" onclick="isLogin(&#39;didwodn82&#39;,&#39;11&#39;)">참외</a></td>
+				<td>didwodn82</td>
+				<td>2019-08-30</td>
+				<td>0</td>
+			</tr>
+			
+			<tr>
+			<td><input type="button" value="글쓰기" onclick="location.href=&#39;boardWriteForm.jsp&#39;"> </td>
+			</tr>
+			<tr>
+			<td colspan="5">
+			
+				<a href="http://localhost:8080/memberJSP/board/boardList.jsp?pg=1">[1]</a>
+			
+				<a href="http://localhost:8080/memberJSP/board/boardList.jsp?pg=2">[2]</a>
+			
+				<a href="http://localhost:8080/memberJSP/board/boardList.jsp?pg=3">[3]</a>
+			
+			</td>
+			</tr>
+	</tbody></table>
+</form>
+
+
+<script src="./Insert title here_files/board.js" type="text/javascript"> </script>
+</body></html>

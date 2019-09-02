@@ -50,6 +50,7 @@ int su = boardDAO.write(boardDTO);
 <script type="text/javascript">
 window.onload=function(){
 	alert("글쓰기 성공");
+	location.href="boardList.jsp?pg=1";
 }
 </script>
 
