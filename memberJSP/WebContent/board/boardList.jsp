@@ -22,13 +22,16 @@
 	boardPaging.makePagingHTML();
 
 	String memId = "";
-	if (session.getAttribute("memId") != "null") //아이디가 널값일수도 있기때문에
+	if (session.getAttribute("memId") != null) //아이디가 널값일수도 있기때문에
 		memId = (String) session.getAttribute("memId"); //로그인체크용
 
+	//조회수 - 새로고침 방지
 	//쿠키
-	Cookie cookie = new Cookie("boardId",memId);//Cookie 생성 
-		cookie.setMaxAge(60*60*24); //하루
-		response.addCookie(cookie);//cilent 저장 
+	if (session.getAttribute("memId") != null){
+		Cookie cookie = new Cookie("memHit","0");
+		cookie.setMaxAge(30*60);
+		response.addCookie(cookie);
+	}
 		
 %>
 

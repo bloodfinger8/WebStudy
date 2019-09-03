@@ -7,11 +7,47 @@
 request.setCharacterEncoding("UTF-8");
 int seq = Integer.parseInt(request.getParameter("seq"));
 int pg = Integer.parseInt(request.getParameter("pg"));
+
+String boardId=null;
+
 BoardDTO boardDTO = new BoardDTO();
-boardDTO = boardDAO.seletedListInfo(seq);
+
 //session ID 가져오기
 String id = (String)session.getAttribute("memId");
-String boardId=null;
+
+Cookie[] ar = request.getCookies();
+if(ar!=null){
+	for(int i =0; i<ar.length; i++){
+		if(ar[i].getName().equals("memHit")){
+			boardDAO.boardHit(seq);
+			ar[i].setMaxAge(0);
+			response.addCookie(ar[i]);
+		}
+	}
+}
+boardDTO = boardDAO.seletedListInfo(seq);
+//조회수 -쿠키시간 30분 사용
+/* 
+String memId = (String)session.getAttribute("memId");
+boolean sw = false;
+
+Cookie[] ar = request.getCookies(); //쿠키 찾기
+if(ar!=null){
+	for(int i =0; i<ar.length; i++){
+		if(ar[i].getName().equals(memId+seq)){
+			sw=true;
+		} 
+	}
+	if(!sw){
+		boardDAO.boardHit(seq);
+		
+		Cookie cookie = new Cookie(memId+seq , seq+"");
+		System.out.println("쿠키명 = " + (memId+seq) +", 값=" +seq+"");
+		cookie.setMaxAge(60*30);
+		response.addCookie(cookie); //클라이언트에게 보내기
+	}
+}
+*/
 %>
 <!DOCTYPE html>
 <html>
@@ -57,7 +93,7 @@ pre {
 	<%
 	//cookie
 		
-		Cookie[] ar = request.getCookies(); //쿠키 찾기
+		 /* Cookie[] ar = request.getCookies(); //쿠키 찾기
 		 if(ar!=null){
 			for(int i =0; i<ar.length; i++){
 				String cookieName = ar[i].getName();
@@ -70,7 +106,7 @@ pre {
 			System.out.println(boardId+"/");
 			if(boardId != null){
 				boardDAO.boardHit(seq);//디비
-			}
+			} 
 			
 			Cookie[] cookies = request.getCookies();//쿠키 죽이기
 			if (cookies != null) {
@@ -81,7 +117,7 @@ pre {
 					}
 				}
 			}
-		} 
+		}  */
 		
 		
 	%>

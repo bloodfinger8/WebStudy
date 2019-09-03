@@ -2,15 +2,16 @@
  * 
  */
 
-function checkBoardWrite(){
-	if (document.boardWriteForm.subject.value == ""){ 
+function checkBoard(){
+	if (document.getElementById("subject").value == ""){ 
 		alert("제목을 입력하시오");
+		document.getElementById("content").focus();
 	}
-	else if (document.boardWriteForm.content.value == ""){
+	else if (document.getElementById("content").value == ""){
 		alert("비밀번호 입력하시오");
 	}
 	else {
-		document.boardWriteForm.submit();
+		document.forms[0].submit();
 	}
 }
 
@@ -20,11 +21,4 @@ function isLogin(memId,seq,pg){
 	}else{
 		location.href="../board/boardView.jsp?seq="+seq+"&pg="+pg;
 	}
-}
-
-function checkModify(){
-	
-		document.modifyForm.submit();
-		
-
 }

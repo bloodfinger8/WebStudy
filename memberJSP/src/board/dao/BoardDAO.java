@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -193,15 +194,15 @@ public class BoardDAO {
 		return boardDTO;
 	}
 	
-	public int modify(BoardDTO boardDTO) {
+	public int boardModify(Map<String,String> map) {
 		int su =0;
-		String sql = "update board set subject=?,content=? where seq=?";
+		String sql = "update board set subject=?,content=?,logtime=sysdate where seq=?";
 		try {
 			conn = ds.getConnection();
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, boardDTO.getSubject());
-			pstmt.setString(2, boardDTO.getContent());
-			pstmt.setInt(3, boardDTO.getSeq());
+			pstmt.setString(1, map.get("subject") );
+			pstmt.setString(2,map.get("content") );
+			pstmt.setInt(3, Integer.parseInt(map.get("seq")));
 			
 			su = pstmt.executeUpdate();
 			
@@ -220,12 +221,12 @@ public class BoardDAO {
 	}
 	
 	
-	public void boardHit(int bs) {
+	public void boardHit(int seq) {
 		String sql = "update board set hit=hit+1 where seq=?";
 		try {
 			conn = ds.getConnection();
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, bs);
+			pstmt.setInt(1, seq);
 			
 			pstmt.executeUpdate();
 		} catch (SQLException e) {
