@@ -7,7 +7,6 @@
 <title>JSP 로그인</title>
 </head>
 <body>
-
 	<form name="writeForm" method="post" action="write.jsp">
 		<table border="1" cellspacing="0" cellpadding="5">
 			<tr>

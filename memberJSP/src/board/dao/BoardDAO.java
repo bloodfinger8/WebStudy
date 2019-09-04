@@ -14,7 +14,6 @@ import javax.naming.NamingException;
 import javax.sql.DataSource;
 
 import board.bean.BoardDTO;
-import member.bean.MemberDTO;
 
 public class BoardDAO {
 	private Connection conn;

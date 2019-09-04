@@ -28,8 +28,8 @@ String fileName2 = multi.getFilesystemName("upload2");
 File file1= multi.getFile("upload1");
 File file2= multi.getFile("upload2");
 
-long fileSize1 =0;
-long fileSize2 =0;
+long fileSize1 = 0;
+long fileSize2 = 0;
 if(file1 != null) fileSize1 = file1.length();
 if(file2 != null) fileSize2 = file2.length();
 %>
@@ -42,15 +42,15 @@ if(file2 != null) fileSize2 = file2.length();
 <body>
 <h3>upload Success</h3>
 <ul>
-	<li>제목 :<%=subject%>
-	<li>내용 :<%=content%><br>
-	<li>파일 :<a href="fileDownload.jsp?fileName=<%=URLEncoder.encode(originalFileName1,"UTF-8") %>"><%=originalFileName1%></a><br>
-	<li>파일 :<%=fileName1%>
-	<li>크기 :<%=fileSize1 %><br>
-	--------------------------
-	<li>파일 :<%=originalFileName2%>
-	<li>파일 :<%=fileName2%>
-	<li>크기 :<%=fileSize2 %>
+	<li>제목 :<%=subject%></li>
+	<li>내용 :<%=content%></li>
+	<li>파일 :<a href="fileDownload.jsp?fileName=<%=URLEncoder.encode(originalFileName1,"UTF-8") %>"><%=originalFileName1%></a></li><br>
+	<li>파일 :<%=fileName1%></li>
+	<li>크기 :<%=fileSize1 %></li>
+	<li>------------------------------</li>
+	<li>파일 :<%=originalFileName2%></li>
+	<li>파일 :<%=fileName2%></li>
+	<li>크기 :<%=fileSize2 %></li>
 </ul>
 </body>
 </html>

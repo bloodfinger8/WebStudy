@@ -7,11 +7,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
-    
 <%
 String fileName = request.getParameter("fileName");
 String realFolder = request.getServletContext().getRealPath("/storage");
-System.out.println(realFolder + "/" +fileName); //window의 경우 "\\" mac "/"
+System.out.println(realFolder + "/" +fileName); //window의 경우 "\\" , mac "/"
 
 //다운로드 받을 파일생성
 File file = new File(realFolder, fileName);
@@ -37,6 +36,7 @@ int size = (int)file.length();
 byte[] b = new byte[size];
 bis.read(b,0,size);
 bos.write(b);
+
 bis.close();
 bos.close();
 %>
