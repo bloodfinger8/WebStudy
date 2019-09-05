@@ -12,14 +12,15 @@ public class CheckIdAction implements CommandProcess {
 
 	@Override
 	public String requestPro(HttpServletRequest request, HttpServletResponse response) throws Throwable {
-		HttpSession session = request.getSession();
-	    String id = (String) session.getAttribute("memId");
+		String id = request.getParameter("id");
 		
 	    MemberDAO memberDAO = MemberDAO.getInstance();
 	    boolean exist = memberDAO.isExistId(id);
+	    System.out.println("**" + exist +","+ id);
 	    
+	    request.setAttribute("exist", exist);
 	    
-		return "/mvcmember/member/CheckIdAction.jsp";
+		return "/member/checkId.jsp?id="+id;
 	}
 
 }

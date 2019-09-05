@@ -12,26 +12,24 @@
 <title>Insert title here</title>
 </head>
 <body>
-<c:if test="">
 
-</c:if>
-<%if(exist){%>
-	<form name="" action="checkId.jsp" method="get"> <!-- 재귀 -->
-	<%=id%>는 사용 불가능
+
+<c:if test="${exist }">
+	<form name="" action="/mvcmember/member/checkId.do" method="get"> <!-- 재귀 -->
+	${param.id }는 사용 불가능
 	<br><br>
 	아이디 <input type="text" name="id">
 	<input type="submit" value="중복체크">
 	
 	</form>
-	
-<%}else{%>
-	
-	<%=id%>는 사용 가능
+</c:if>
+<c:if test="${!exist }">
+	${param.id}는 사용 가능
 	<br><br>
-	<input type="button" value="ID사용" onclick="checkIdClose('<%=id%>')">
-<%}%>
+	<input type="button" value="ID사용" onclick="checkIdClose('${param.id }')">
+</c:if>
 </body>
 
 
-<script src="http://localhost:8080/memberJSP/js/member.js" type="text/javascript"> </script>
+<script src="../js/member.js" type="text/javascript"> </script>
 </html>
