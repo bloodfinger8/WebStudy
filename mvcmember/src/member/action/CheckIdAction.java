@@ -19,8 +19,12 @@ public class CheckIdAction implements CommandProcess {
 	    System.out.println("**" + exist +","+ id);
 	    
 	    request.setAttribute("exist", exist);
-	    
-		return "/member/checkId.jsp?id="+id;
+	    request.setAttribute("id", id);
+	    if(exist) {
+	    	return "/member/checkIdFail.jsp";
+	    }else {
+	    	return "/member/checkIdOk.jsp";
+	    }
 	}
 
 }

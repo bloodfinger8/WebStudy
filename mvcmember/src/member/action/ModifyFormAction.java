@@ -13,16 +13,16 @@ public class ModifyFormAction implements CommandProcess {
 
 	@Override
 	public String requestPro(HttpServletRequest request, HttpServletResponse response) throws Throwable {
-		
 		//데이터 얻기 
 		HttpSession session = request.getSession();
 	    String id = (String) session.getAttribute("memId");
 		
+	    //DB
 		MemberDAO memberDAO = MemberDAO.getInstance();
 		MemberDTO memberDTO = memberDAO.getMember(id);
 		
-		session.setAttribute("memberDTO", memberDTO);
-		
+		//응답
+		request.setAttribute("memberDTO", memberDTO);
 		return "/member/modifyForm.jsp";
 	}
 

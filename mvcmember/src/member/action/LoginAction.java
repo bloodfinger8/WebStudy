@@ -25,7 +25,7 @@ public class LoginAction implements CommandProcess {
 		if(memberDTO == null) {
 			return "/member/loginFail.jsp";
 		}else {
-			//세션
+			//세션 생성
 			HttpSession session = request.getSession();
 			session.setAttribute("memName", memberDTO.getName());
 			session.setAttribute("memId", id);

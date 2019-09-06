@@ -10,6 +10,9 @@
 <title>Insert title here</title>
 </head>
 <body>
-회원정보 수정이 되었습니다.
 </body>
+<script type="text/javascript">
+	alert("회원정보수정완료");
+	location.href="/mvcmember/member/loginForm.do";
+</script>
 </html>

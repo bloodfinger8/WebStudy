@@ -2,7 +2,6 @@ package member.action;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import com.control.CommandProcess;
 
@@ -13,6 +12,8 @@ public class ModifyAction implements CommandProcess {
 
 	@Override
 	public String requestPro(HttpServletRequest request, HttpServletResponse response) throws Throwable {
+		//데이터 얻기
+		
 		String name = request.getParameter("name");
 		String id = request.getParameter("id");
 		String pwd = request.getParameter("pwd");
@@ -40,8 +41,9 @@ public class ModifyAction implements CommandProcess {
 		memberDTO.setAddr1(addr1);
 		memberDTO.setAddr2(addr2);
 		
+		//DB
 	    MemberDAO memberDAO = MemberDAO.getInstance();
-		int su = memberDAO.modify(memberDTO);
+		memberDAO.modify(memberDTO);
 		
 		return "/member/modify.jsp";
 	}

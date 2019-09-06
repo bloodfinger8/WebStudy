@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 
 public class ControlServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private Map<String, Object> map = new HashMap<String, Object>();
+	private Map<String, Object> map = new HashMap<String, Object>(); 
        
 	@Override
 	public void init(ServletConfig config) throws ServletException {
