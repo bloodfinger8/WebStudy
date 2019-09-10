@@ -15,8 +15,11 @@
 	</tr>
 	
 	<tr>
-		<td width="20%" height="300"><jsp:include page="../template/left.jsp"/></td>
-		<td><jsp:include page="../template/body.jsp"/></td>
+		<td width="20%" height="300">
+			<jsp:include page="../template/left.jsp"/>
+		</td>
+			<td><jsp:include page="${display}"/>
+		</td>
 	</tr>
 	
 	<tr>
