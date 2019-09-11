@@ -35,7 +35,7 @@ function checkId(){ //id 중복 확인
 	if(sId==""){
 		alert("먼저 ID입력하세요");
 	}else{
-		window.open("/mvcmember/member/checkId.do?id="+sId,
+		window.open("/miniproject/member/checkId.do?id="+sId,
 				"",
 				"width=500 height=300 left=250 top=200");
 	}

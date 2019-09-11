@@ -1,6 +1,8 @@
 package member.action;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -18,10 +20,15 @@ public class CheckPostAction implements CommandProcess {
 		String sigungu = request.getParameter("sigungu");
 		String roadname = request.getParameter("roadname");
 		
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("sido", sido);
+		map.put("sigungu", sigungu);
+		map.put("roadname", roadname);
+		
 		MemberDAO memberDAO = MemberDAO.getInstance();
 		List<ZipcodeDTO> list = null;
 		if(sido != null && roadname!=null){ //데이터가 없으면 못가게 한다
-			list = memberDAO.getZipcodeList(sido,sigungu,roadname);
+			list = memberDAO.getZipcodeList(map);
 		}
 		
 		request.setAttribute("list", list);

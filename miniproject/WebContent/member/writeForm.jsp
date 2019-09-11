@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
     
     
-	<form name="writeForm" method="post" action="write.jsp">
+	<form name="writeForm" method="post" action="/miniproject/member/write.do">
 		<table border="1" cellspacing="0" cellpadding="5">
 			<tr>
 				<th width="80">이름</th>

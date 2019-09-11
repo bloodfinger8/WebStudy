@@ -7,7 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-<form name="" action="/mvcmember/member/checkId.do" method="get"> <!-- 재귀 -->
+<form name="" action="/miniproject/member/checkId.do" method="get"> <!-- 재귀 -->
 	${requestScope.id }는 사용 불가능
 	<br><br>
 	아이디 <input type="text" name="id">
