@@ -1,5 +1,7 @@
 package user.action;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 import user.bean.UserDTO;
@@ -23,12 +25,16 @@ public class UserUpdateAction implements UserAction {
 			System.out.println("수정할 비밀번호 : ");
 			String pwd = scan.next();
 			
+			Map<String, String> map = new HashMap<String, String>();
+			map.put("name", name);
+			map.put("id" , id);
+			map.put("pwd", pwd);
 			
-			userDTO.setName(name);
-			userDTO.setId(id);
-			userDTO.setPwd(pwd);
+//			userDTO.setName(name);
+//			userDTO.setId(id);
+//			userDTO.setPwd(pwd);
 			
-			userDAO.update(userDTO);
+			userDAO.update(map);
 			System.out.println("데이터를 수정하였습니다.");
 			
 		}else {

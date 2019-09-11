@@ -10,7 +10,7 @@ public class UserDeleteAction implements UserAction {
 	@Override
 	public void execute() {
 		Scanner scan = new Scanner(System.in);
-		System.out.print("아이디 입력 : ");
+		System.out.print("삭제할 아이디 입력 : ");
 		String id = scan.next();
 		
 		UserDAO userDAO = UserDAO.getInstance();
