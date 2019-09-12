@@ -16,7 +16,7 @@ td,option{font-size: 8pt;}
 </style>
 </head>
 <body>
-<form name="checkPostForm" method="post" action="/mvcmember/member/checkPost.do">
+<form name="checkPostForm" method="post" action="/miniproject/member/checkPost.do">
 		<table border="2" cellspacing="0" cellpadding="5" width="100%">
 			<tr>
 				<td width="70" align="center">시</td>

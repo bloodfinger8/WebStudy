@@ -3,14 +3,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>회원정보수정</title>
-</head>
-<body>
-<form name="modifyForm" method="post" action="/mvcmember/member/modify.do">
+<form name="modifyForm" method="post" action="/miniproject/member/modify.do">
 		<table border="1" cellspacing="0" cellpadding="5">
 			<tr>
 				<th width="80">이름</th>
@@ -78,9 +71,8 @@
 			</tr>
 		</table>
 	</form>
-</body>
 
-<script src="http://localhost:8080/mvcmember/js/member.js" type="text/javascript"></script>
+<script src="../js/member.js" type="text/javascript"></script>
 <script type="text/javascript">
 window.onload=function(){
 	//라디오버튼은 배열타입으로 출력이 된다
@@ -90,4 +82,3 @@ window.onload=function(){
 }
 </script>
 
-</html>

@@ -97,7 +97,7 @@ public class MemberDAO {
 	
 	public MemberDTO getMember(String id) {
 		SqlSession sqlSession = sqlSessionFactory.openSession();
-		MemberDTO memberDTO = sqlSession.selectOne("memberSQL", id);
+		MemberDTO memberDTO = sqlSession.selectOne("memberSQL.getMember", id);
 		sqlSession.close();
 		
 		return memberDTO;
@@ -106,7 +106,7 @@ public class MemberDAO {
 	
 	public List<ZipcodeDTO> getZipcodeList(Map<String, String> map){
 		SqlSession sqlSession = sqlSessionFactory.openSession();
-		List<ZipcodeDTO> list = sqlSession.selectList("memberSQL",map);
+		List<ZipcodeDTO> list = sqlSession.selectList("memberSQL.getZipcodeList",map);
 		sqlSession.close();
 		
 		return list;
@@ -115,7 +115,7 @@ public class MemberDAO {
 	
 	public int modify(MemberDTO memberDTO) {
 		SqlSession sqlSession = sqlSessionFactory.openSession();
-		int su = sqlSession.delete("memberSQL", memberDTO);
+		int su = sqlSession.delete("memberSQL.modify", memberDTO);
 		sqlSession.commit();
 		sqlSession.close();
 		

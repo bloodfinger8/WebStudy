@@ -43,9 +43,13 @@ public class ModifyAction implements CommandProcess {
 		
 		//DB
 	    MemberDAO memberDAO = MemberDAO.getInstance();
-		memberDAO.modify(memberDTO);
+		int su = memberDAO.modify(memberDTO);
 		
-		return "/member/modify.jsp";
+		request.setAttribute("display","/member/modify.jsp");
+		
+		return "/main/index.jsp";
+		
+		
 	}
 
 }

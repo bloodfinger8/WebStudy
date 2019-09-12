@@ -20,10 +20,12 @@ public class ModifyFormAction implements CommandProcess {
 	    //DB
 		MemberDAO memberDAO = MemberDAO.getInstance();
 		MemberDTO memberDTO = memberDAO.getMember(id);
-		
+		System.out.println("modifyForm : " + memberDTO);
 		//응답
 		request.setAttribute("memberDTO", memberDTO);
-		return "/member/modifyForm.jsp";
+		request.setAttribute("display","/member/modifyForm.jsp");
+		
+		return "/main/index.jsp";
 	}
 
 }

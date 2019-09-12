@@ -21,11 +21,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 </select> -->
 
 <select id="getMember" parameterType="String" resultType="member">
-	select * from members where id = ${id}
+	select * from members where id = #{id}
 </select>
 
-<select id="getZipcodeList" parameterType="java.util.Map">
-	select * from newzipcode where sido like "%"||#{sido}||"%" AND nvl(sigungu,'0') like "%"||#{sigungu}||"%" AND roadname like "%"||#{roadname}||"%"
+<select id="getZipcodeList" parameterType="java.util.Map" resultType="member.bean.ZipcodeDTO">
+	select * from newzipcode where sido like '%'||#{sido}||'%' AND nvl(sigungu,'0') like '%'||#{sigungu}||'%' AND roadname like '%'||#{roadname}||'%'
 </select>
 
 <update id="modify" parameterType="member">

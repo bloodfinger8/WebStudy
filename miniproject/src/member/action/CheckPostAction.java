@@ -20,18 +20,18 @@ public class CheckPostAction implements CommandProcess {
 		String sigungu = request.getParameter("sigungu");
 		String roadname = request.getParameter("roadname");
 		
-		Map<String, String> map = new HashMap<String, String>();
-		map.put("sido", sido);
-		map.put("sigungu", sigungu);
-		map.put("roadname", roadname);
-		
 		MemberDAO memberDAO = MemberDAO.getInstance();
 		List<ZipcodeDTO> list = null;
 		if(sido != null && roadname!=null){ //데이터가 없으면 못가게 한다
+			Map<String, String> map = new HashMap<String, String>();
+			map.put("sido", sido);
+			map.put("sigungu", sigungu);
+			map.put("roadname", roadname);
 			list = memberDAO.getZipcodeList(map);
 		}
-		
+		System.out.println("list 는무엇일까? : " + list);
 		request.setAttribute("list", list);
+		
 		return "/member/checkPost.jsp";
 	}
 
