@@ -1,13 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
-<form name="boardWriteForm" method="post" action="/mvcboard/board/boardWrite.do">
+
+<form name="boardWriteForm" method="post" action="/miniproject/board/boardWrite.do">
 		<table border="1" cellspacing="0" cellpadding="5">
 			<tr>
 				<th>제목</th>
@@ -25,6 +19,4 @@
 			</tr>
 		</table>
 </form>
-</body>
 <script src="../js/board.js" type="text/javascript"> </script>
-</html>

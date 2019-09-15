@@ -1,15 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>글수정</title>
-</head>
-<body>
 <h3>글수정</h3>
-<form name="boardModifyForm" method="post" action="/mvcboard/board/boardModify.do">
+<form name="boardModifyForm" method="post" action="/miniproject/board/boardModify.do">
 		<table border="1" cellspacing="0" cellpadding="5">
 			<tr>
 				<th>제목</th>
@@ -29,6 +22,5 @@
 		<input type="hidden" name="pg" value="${pg}">
 		<input type="hidden" name="seq" value="${seq}">
 </form>
-</body>
+
 <script src="../js/board.js" type="text/javascript"> </script>
-</html>

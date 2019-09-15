@@ -10,12 +10,23 @@ insert into board values(seq_board.nextval,#{id},#{name},#{email},#{subject},#{c
 </insert>
 
 <select id="writeAll" parameterType="java.util.Map" resultType="board">
-<![CDATA[select * from (select rownum rn, tt.* from (select seq,id,name,email,subject,content,ref,lev,step,pseq,reply,hit,to_char(logtime,'YYYY-MM-DD') as logtime from board order by ref desc, step asc)tt) where rn>= #{startNum} and rn <= #{endNum}]]>
+select * from (select rownum rn, tt.* from (select seq,id,name,email,subject,content,ref,lev,step,pseq,reply,hit,to_char(logtime,'YYYY-MM-DD') as logtime from board order by ref desc, step asc)tt) where rn<![CDATA[>=]]> #{startNum} and rn <![CDATA[<=]]> #{endNum}
 </select>
 
 <select id="getTotalA" resultType="java.lang.Integer">
 select count(*) from board
 </select>
 
+<select id="seletedListInfo" parameterType="String" resultType="board">
+select * from board where seq = #{seq}
+</select>
+
+<update id="boardModify" parameterType="java.util.Map">
+update board set subject=#{subject},content=#{content},logtime=sysdate where seq=#{seq}
+</update>
+
+<update id="boardHit" parameterType="Integer">
+update board set hit=hit+1 where seq=#{seq}
+</update>
 
 </mapper>

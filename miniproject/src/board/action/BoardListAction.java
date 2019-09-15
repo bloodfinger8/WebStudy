@@ -7,6 +7,7 @@ import java.util.Map;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.control.CommandProcess;
 
@@ -18,6 +19,7 @@ public class BoardListAction implements CommandProcess {
 
 	@Override
 	public String requestPro(HttpServletRequest request, HttpServletResponse response) throws Throwable {
+		HttpSession session = request.getSession();
 		
 		int pg = Integer.parseInt(request.getParameter("pg"));
 		int endNum = pg * 5; //한페이지당 5개
@@ -25,9 +27,9 @@ public class BoardListAction implements CommandProcess {
 		
 		//DB
 		BoardDAO boardDAO = BoardDAO.getInstance();
-		Map<String, String> map = new HashMap<String, String>();
-		map.put("startNum", startNum+"");
-		map.put("endNum", endNum+"");
+		Map<String, Integer> map = new HashMap<String, Integer>();
+		map.put("startNum", startNum);
+		map.put("endNum", endNum);
 		List<BoardDTO> list = boardDAO.writeAll(map);
 		//페이징처리
 		BoardPaging boardPaging = new BoardPaging();
@@ -40,14 +42,15 @@ public class BoardListAction implements CommandProcess {
 
 		//조회수 - 새로고침 방지
 		//쿠키
-		Cookie cookie = new Cookie("memHit","0");
-		cookie.setMaxAge(30*60);
-		response.addCookie(cookie);
+		if(session.getAttribute("memId") != null) {
+			Cookie cookie = new Cookie("memHit","0");
+			cookie.setMaxAge(30*60);
+			response.addCookie(cookie);
+		}
 		
 		request.setAttribute("list", list);
 		request.setAttribute("boardPaging", boardPaging);
 		request.setAttribute("pg", pg);
-		
 		request.setAttribute("display","/board/boardList.jsp");
 		 
 		return "/main/index.jsp";

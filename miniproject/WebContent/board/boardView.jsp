@@ -34,7 +34,7 @@ pre {
 			
 			<tr>
 				<td colspan="3" >
-				<input type="button" value="목록" onclick="location.href='/mvcboard/board/boardList.do?pg=${pg}'">
+				<input type="button" value="목록" onclick="location.href='/miniproject/board/boardList.do?pg=${pg}'">
 				<c:if test="${sessionScope.memId == boardDTO.id }">
 					<input type="button" value="글수정" onclick="location.href='boardModifyForm.do?pg=${pg}&seq=${boardDTO.seq}'">
 					<input type="button" value="글삭제" onclick="" > 

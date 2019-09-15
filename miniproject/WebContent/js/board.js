@@ -19,6 +19,6 @@ function isLogin(memId,seq,pg){
 	if(memId==""){
 		alert("로그인 먼저 해주세요");
 	}else{
-		location.href="../board/boardView.jsp?seq="+seq+"&pg="+pg;
+		location.href="/miniproject/board/boardView.do?seq="+seq+"&pg="+pg;
 	}
 }

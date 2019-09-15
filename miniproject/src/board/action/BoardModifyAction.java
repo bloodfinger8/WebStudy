@@ -30,7 +30,9 @@ public class BoardModifyAction implements CommandProcess {
 		
 		request.setAttribute("pg", pg);
 		
-		return "/board/boardModify.jsp";
+		
+		request.setAttribute("display","/board/boardModify.jsp");
+		return "/main/index.jsp";
 	}
 
 }

@@ -1,7 +1,9 @@
 package board.action;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.control.CommandProcess;
 
@@ -16,34 +18,31 @@ public class BoardViewAction implements CommandProcess {
 		//데이터
 		int seq = Integer.parseInt(request.getParameter("seq"));
 		int pg = Integer.parseInt(request.getParameter("pg"));
-//		String boardId=null;
+		String boardId = null;
 		BoardDTO boardDTO = new BoardDTO();
 		
-//		String id = (String)session.getAttribute("memId");
+		HttpSession session = request.getSession();
+		String id = (String)session.getAttribute("memId");
 
 		BoardDAO boardDAO = BoardDAO.getInstance();
 		
-//		Cookie[] ar = request.getCookies();
-//		if(ar!=null){
-//			for(int i =0; i<ar.length; i++){
-//				if(ar[i].getName().equals("memHit")){
-//					boardDAO.boardHit(seq);
-//					ar[i].setMaxAge(0);
-//					response.addCookie(ar[i]);
-//				}
-//			}
-//		}
-		
+		Cookie[] ar = request.getCookies();
+		if(ar!=null){
+			for(int i =0; i<ar.length; i++){
+				if(ar[i].getName().equals("memHit")){
+					boardDAO.boardHit(seq);
+					ar[i].setMaxAge(0);
+					response.addCookie(ar[i]);
+				}
+			}
+		}
 		boardDTO = boardDAO.seletedListInfo(seq);
-		
 		
 		request.setAttribute("pg", pg);
 		request.setAttribute("boardDTO", boardDTO);
 		
-		
-		
-		
-		return "/board/boardView.jsp";
+		request.setAttribute("display","/board/boardView.jsp");
+		return "/main/index.jsp";
 	}
 
 }

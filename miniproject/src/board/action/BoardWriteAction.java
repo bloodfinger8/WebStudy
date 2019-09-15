@@ -2,6 +2,7 @@ package board.action;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.control.CommandProcess;
 
@@ -13,17 +14,21 @@ public class BoardWriteAction implements CommandProcess {
 	@Override
 	public String requestPro(HttpServletRequest request, HttpServletResponse response) throws Throwable {
 		//데이터
+		
 		String subject = request.getParameter("subject");
 		String content = request.getParameter("content");
-//		String id = (String)session.getAttribute("memId");
-//		String name =(String)session.getAttribute("memName");
-//		String email = (String)session.getAttribute("memEmail");
+		
+		HttpSession session = request.getSession();
+		String id = (String)session.getAttribute("memId");
+		String name =(String)session.getAttribute("memName");
+		String email = (String)session.getAttribute("memEmail");
+		System.out.println("**세션값 체크 "+id + "," + name +","+ email );
 		
 		//db
 		BoardDTO boardDTO = new BoardDTO();
-		boardDTO.setId("rhrlfehd");
-		boardDTO.setName("길동이");
-		boardDTO.setEmail("rhrlfehd@naver.com");
+		boardDTO.setId(id);
+		boardDTO.setName(name);
+		boardDTO.setEmail(email);
 		boardDTO.setSubject(subject);
 		boardDTO.setContent(content);
 //		boardDTO.setRef();
@@ -37,8 +42,8 @@ public class BoardWriteAction implements CommandProcess {
 		int su = boardDAO.write(boardDTO);
 		request.setAttribute("su", su);
 		
-		
-		return "/board/boardWrite.jsp";
+		request.setAttribute("display","/board/boardWrite.jsp");
+		return "/main/index.jsp";
 	}
 
 }

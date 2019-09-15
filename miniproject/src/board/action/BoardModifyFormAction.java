@@ -25,7 +25,8 @@ public class BoardModifyFormAction implements CommandProcess {
 		request.setAttribute("seq", seq);
 		request.setAttribute("boardDTO", boardDTO);
 		
-		return "/board/boardModifyForm.jsp";
+		request.setAttribute("display","/board/boardModifyForm.jsp");
+		return "/main/index.jsp";
 	}
 
 }

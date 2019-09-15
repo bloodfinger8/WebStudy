@@ -16,7 +16,6 @@ public class BoardDAO {
 	private static BoardDAO instance;
 	private SqlSessionFactory sqlSessionFactory;
 	
-	
 	public BoardDAO() {
 		try {
 			Reader reader = Resources.getResourceAsReader("mybatis-config.xml");
@@ -24,7 +23,6 @@ public class BoardDAO {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-	
 	}
 	
 	public static BoardDAO getInstance(){
@@ -46,7 +44,7 @@ public class BoardDAO {
 	}
 	
 	
-	public List<BoardDTO> writeAll(Map<String, String> map){
+	public List<BoardDTO> writeAll(Map<String, Integer> map){
 		SqlSession sqlSession = sqlSessionFactory.openSession();
 		List<BoardDTO> list =sqlSession.selectList("boardSQL.writeAll", map);
 		sqlSession.close();
@@ -63,98 +61,32 @@ public class BoardDAO {
 		
 		return su;
 	}
-	/*
+	
 	public BoardDTO seletedListInfo(int seq) {
-		BoardDTO boardDTO = new BoardDTO();
-		String sql= "select * from board where seq= ?";
-		try {
-			conn = ds.getConnection();
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, seq);
-			rs = pstmt.executeQuery();
-			
-			if(rs.next()) {
-				boardDTO.setSeq(rs.getInt("seq"));
-				boardDTO.setId(rs.getString("id"));
-				boardDTO.setName(rs.getString("name"));
-				boardDTO.setEmail(rs.getString("email"));
-				boardDTO.setSubject(rs.getString("subject"));
-				boardDTO.setContent(rs.getString("content"));
-				boardDTO.setRef(rs.getInt("ref"));
-				boardDTO.setLev(rs.getInt("lev"));
-				boardDTO.setStep(rs.getInt("step"));
-				boardDTO.setPseq(rs.getInt("pseq"));
-				boardDTO.setReply(rs.getInt("reply"));
-				boardDTO.setHit(rs.getInt("hit"));
-				boardDTO.setLogtime(rs.getString("logtime"));
-			}
-			
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}finally {
-			try {
-				if (rs != null)
-					rs.close();
-				if (pstmt != null)
-					pstmt.close();
-				if (conn != null)
-					conn.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
+		SqlSession sqlSession = sqlSessionFactory.openSession();
+		BoardDTO boardDTO = sqlSession.selectOne("boardSQL.seletedListInfo", seq+"");
+		sqlSession.close();
+		
 		return boardDTO;
 	}
 	
 	public int boardModify(Map<String,String> map) {
-		int su =0;
-		String sql = "update board set subject=?,content=?,logtime=sysdate where seq=?";
-		try {
-			conn = ds.getConnection();
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, map.get("subject") );
-			pstmt.setString(2,map.get("content") );
-			pstmt.setInt(3, Integer.parseInt(map.get("seq")));
-			
-			su = pstmt.executeUpdate();
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}finally {
-			try {
-				if(pstmt!=null) pstmt.close();
-				if(conn!=null) conn.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
+		SqlSession sqlSession = sqlSessionFactory.openSession();
+		int su = sqlSession.update("boardSQL.boardModify", map);
+		sqlSession.commit();
+		sqlSession.close();
 		
 		return su;
 	}
 	
 	
 	public void boardHit(int seq) {
-		String sql = "update board set hit=hit+1 where seq=?";
-		try {
-			conn = ds.getConnection();
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, seq);
-			
-			pstmt.executeUpdate();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}finally {
-			try {
-				if(pstmt!=null) pstmt.close();
-				if(conn!=null) conn.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
-	
+		SqlSession sqlSession = sqlSessionFactory.openSession();
+		sqlSession.update("boardSQL.boardHit", seq);
+		sqlSession.commit();
+		sqlSession.close();
 	}
-	*/
+	
 
 	
 	
