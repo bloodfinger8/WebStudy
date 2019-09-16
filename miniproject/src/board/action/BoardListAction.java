@@ -24,16 +24,28 @@ public class BoardListAction implements CommandProcess {
 		int pg = Integer.parseInt(request.getParameter("pg"));
 		int endNum = pg * 5; //한페이지당 5개
 		int startNum = endNum - 4;
+		String textContent = request.getParameter("textContent");
+		String selected = request.getParameter("selected");
+		System.out.println("***textContent : " + textContent + ", selected : " + selected);
 		
 		//DB
 		BoardDAO boardDAO = BoardDAO.getInstance();
-		Map<String, Integer> map = new HashMap<String, Integer>();
-		map.put("startNum", startNum);
-		map.put("endNum", endNum);
-		List<BoardDTO> list = boardDAO.writeAll(map);
+		
+		Map<String, String> map = new HashMap<String, String>();
+		List<BoardDTO> list = null;
+		if(textContent == null) {
+			map.put("startNum", startNum+"");
+			map.put("endNum", endNum+"");
+			list = boardDAO.writeAll(map); //모든 게시물 출력
+		}else {
+			map.put("selected",selected);
+			map.put("textContent",textContent);
+			list = boardDAO.listSearch(map);
+		}
+		
 		//페이징처리
 		BoardPaging boardPaging = new BoardPaging();
-		int su = boardDAO.getTotalA(); //총 글수
+		int su = boardDAO.getTotalA(map); //총 글수
 		boardPaging.setCurrentPage(pg);
 		boardPaging.setPageBlock(3);
 		boardPaging.setPageSize(5);
@@ -51,10 +63,10 @@ public class BoardListAction implements CommandProcess {
 		request.setAttribute("list", list);
 		request.setAttribute("boardPaging", boardPaging);
 		request.setAttribute("pg", pg);
+		
 		request.setAttribute("display","/board/boardList.jsp");
 		 
 		return "/main/index.jsp";
-		
 		
 	}
 

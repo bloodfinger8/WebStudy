@@ -7,6 +7,8 @@
 <title>Insert title here</title>
 </head>
 <body>
- <h3><marquee width="auto">bitcamp</marquee></h3>
+<script type="text/javascript">
+alert("이미지 저장완료");
+</script>
 </body>
 </html>

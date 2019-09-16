@@ -27,9 +27,9 @@ public class LoginAction implements CommandProcess {
 		MemberDTO memberDTO = memberDAO.login(map);
 		System.out.println("memberDTO = " + memberDTO + "입니다");
 		//응답
-		
+		String loginResult = null;
 		if(memberDTO == null) {
-			request.setAttribute("display","/member/loginFail.jsp" );			
+			loginResult = "fail";
 		}else {
 			//세션 생성
 			HttpSession session = request.getSession();
@@ -37,8 +37,9 @@ public class LoginAction implements CommandProcess {
 			session.setAttribute("memId", id);
 			session.setAttribute("memEmail", memberDTO.getEmail1() + "@" + memberDTO.getEmail2());
 			
-			request.setAttribute("display","/member/loginOk.jsp");
 		}
+		request.setAttribute("loginResult",loginResult);
+		request.setAttribute("display","/template/body.jsp");
 		return "/main/index.jsp";
 		
 	}

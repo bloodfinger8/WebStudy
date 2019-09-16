@@ -66,10 +66,7 @@ public class BoardPaging {
 		if(endPage < totalP) {
 			pagingHTML.append("[<a id='paging' href='boardList.do?pg=" +(endPage+1)+"'>다음</a>]");
 		}
-		
-			
 	}
-	
 }
 
 //String- 편집불가

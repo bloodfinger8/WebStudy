@@ -22,7 +22,6 @@ public class BoardWriteAction implements CommandProcess {
 		String id = (String)session.getAttribute("memId");
 		String name =(String)session.getAttribute("memName");
 		String email = (String)session.getAttribute("memEmail");
-		System.out.println("**세션값 체크 "+id + "," + name +","+ email );
 		
 		//db
 		BoardDTO boardDTO = new BoardDTO();

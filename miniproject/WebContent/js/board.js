@@ -22,3 +22,14 @@ function isLogin(memId,seq,pg){
 		location.href="/miniproject/board/boardView.do?seq="+seq+"&pg="+pg;
 	}
 }
+
+function searchList(){
+	if(document.getElementById("textContent").value==""){
+		alert("검색어를 입력해주세요");
+	}else{ 
+		var textContent = document.getElementById("textContent").value;
+		var selected = document.boardListForm.selected.value;
+		location.href="/miniproject/board/boardList.do?pg=1&textContent="+textContent+"&selected="+selected;
+	}
+}
+
