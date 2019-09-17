@@ -44,7 +44,7 @@ public class BoardDAO {
 	}
 	
 	
-	public List<BoardDTO> writeAll(Map<String, String> map){
+	public List<BoardDTO> writeAll(Map<String, Object> map){
 		SqlSession sqlSession = sqlSessionFactory.openSession();
 		List<BoardDTO> list =sqlSession.selectList("boardSQL.writeAll", map);
 		sqlSession.close();
@@ -54,7 +54,7 @@ public class BoardDAO {
 	
 	
 	
-	public int getTotalA(Map<String, String> map) {
+	public int getTotalA(Map<String, Object> map) {
 		SqlSession sqlSession = sqlSessionFactory.openSession();
 		int su = sqlSession.selectOne("boardSQL.getTotalA",map);
 		sqlSession.close();
@@ -87,13 +87,13 @@ public class BoardDAO {
 		sqlSession.close();
 	}
 	
-	public List<BoardDTO> listSearch(Map<String, String> map) {
-		SqlSession sqlSession = sqlSessionFactory.openSession();
-		List<BoardDTO> list = sqlSession.selectList("boardSQL.listSearch", map);
-		sqlSession.close();
-		
-		return list;
-	}
+//	public List<BoardDTO> listSearch(Map<String, String> map) {
+//		SqlSession sqlSession = sqlSessionFactory.openSession();
+//		List<BoardDTO> list = sqlSession.selectList("boardSQL.listSearch", map);
+//		sqlSession.close();
+//		
+//		return list;
+//	}
 	
 
 	

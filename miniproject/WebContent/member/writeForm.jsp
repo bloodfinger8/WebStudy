@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
-    
 	<form name="writeForm" method="post" action="/miniproject/member/write.do">
 		<table border="1" cellspacing="0" cellpadding="5">
 			<tr>

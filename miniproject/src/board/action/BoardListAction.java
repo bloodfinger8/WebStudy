@@ -19,7 +19,6 @@ public class BoardListAction implements CommandProcess {
 
 	@Override
 	public String requestPro(HttpServletRequest request, HttpServletResponse response) throws Throwable {
-		HttpSession session = request.getSession();
 		
 		int pg = Integer.parseInt(request.getParameter("pg"));
 		int endNum = pg * 5; //한페이지당 5개
@@ -30,19 +29,13 @@ public class BoardListAction implements CommandProcess {
 		
 		//DB
 		BoardDAO boardDAO = BoardDAO.getInstance();
+		Map<String, Object> map = new HashMap<String, Object>();
 		
-		Map<String, String> map = new HashMap<String, String>();
-		List<BoardDTO> list = null;
-		if(textContent == null) {
-			map.put("startNum", startNum+"");
-			map.put("endNum", endNum+"");
-			list = boardDAO.writeAll(map); //모든 게시물 출력
-		}else {
-			map.put("selected",selected);
-			map.put("textContent",textContent);
-			list = boardDAO.listSearch(map);
-		}
-		
+		map.put("startNum", startNum);
+		map.put("endNum", endNum);
+		map.put("selected", selected);
+		map.put("textContent",textContent);
+		List<BoardDTO> list = boardDAO.writeAll(map); //모든 게시물 출력
 		//페이징처리
 		BoardPaging boardPaging = new BoardPaging();
 		int su = boardDAO.getTotalA(map); //총 글수
@@ -53,7 +46,8 @@ public class BoardListAction implements CommandProcess {
 		boardPaging.makePagingHTML();
 
 		//조회수 - 새로고침 방지
-		//쿠키
+		//쿠키 생성
+		HttpSession session = request.getSession();
 		if(session.getAttribute("memId") != null) {
 			Cookie cookie = new Cookie("memHit","0");
 			cookie.setMaxAge(30*60);

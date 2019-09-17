@@ -8,4 +8,21 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <insert id="write" parameterType="imageboard">
 insert into imageboard values(seq_imageboard.nextval,#{imageId},#{imageName},#{imagePrice},#{imageQty},#{imageContent},#{image1},sysdate)
 </insert>
+
+<select id="writeAll" parameterType="java.util.Map" resultType="imageboard">
+select * from 
+(select rownum rn, tt.* from 
+(select seq,imageId,imageName,imagePrice,imageQty,imageContent,image1,to_char(logtime,'YYYY-MM-DD') as logtime 
+from imageboard order by seq desc)tt)
+where rn <![CDATA[>=]]> #{startNum} and rn <![CDATA[<=]]> #{endNum}
+</select>
+
+<select id="getTotalA" resultType="Integer">
+select count(*) from imageboard
+</select>
+
+<select id="selectedList" parameterType="Integer" resultType="imageboard">
+select * from imageboard where seq = #{seq}
+</select>
+
 </mapper>

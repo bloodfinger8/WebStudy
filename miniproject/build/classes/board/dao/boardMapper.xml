@@ -10,19 +10,32 @@ insert into board values(seq_board.nextval,#{id},#{name},#{email},#{subject},#{c
 </insert>
 
 <select id="writeAll" parameterType="java.util.Map" resultType="board">
-select * from (select rownum rn, tt.* from (select seq,id,name,email,subject,content,ref,lev,step,pseq,reply,hit,to_char(logtime,'YYYY-MM-DD') as logtime from board order by ref desc, step asc)tt) where rn<![CDATA[>=]]> #{startNum} and rn <![CDATA[<=]]> #{endNum}
+select * from 
+(select rownum rn, tt.* from 
+(select seq,id,name,email,subject,content,ref,lev,step,pseq,reply,hit,to_char(logtime,'YYYY-MM-DD') as logtime 
+from board order by ref desc, step asc)tt) 
+where rn<![CDATA[>=]]> #{startNum,jdbcType=INTEGER} and rn <![CDATA[<=]]> #{endNum,jdbcType=INTEGER}
+<if test="selected == 'all'">
+AND (subject like '%'||#{textContent,jdbcType=VARCHAR}||'%' OR content like '%'||#{textContent,jdbcType=VARCHAR}||'%')
+</if>
+<if test="selected == 'subject'">
+AND subject like '%'||#{textContent,jdbcType=VARCHAR}||'%'
+</if>
+<if test="selected == 'writer'">
+AND id like '%'||#{textContent,jdbcType=VARCHAR}||'%'
+</if>
 </select>
 
 <select id="getTotalA" parameterType="java.util.Map" resultType="java.lang.Integer">
 select count(*) from board
 <if test="selected == 'all'">
-where subject like '%'||#{textContent}||'%' OR content like '%'||#{textContent}||'%'
+where subject like '%'||#{textContent,jdbcType=VARCHAR}||'%' OR content like '%'||#{textContent,jdbcType=VARCHAR}||'%'
 </if>
 <if test="selected == 'subject'">
-where subject like '%'||#{textContent}||'%'
+where subject like '%'||#{textContent,jdbcType=VARCHAR}||'%'
 </if>
 <if test="selected == 'writer'">
-where id like '%'||#{textContent}||'%'
+where id like '%'||#{textContent,jdbcType=VARCHAR}||'%'
 </if>
 </select>
 
@@ -38,17 +51,5 @@ update board set subject=#{subject},content=#{content},logtime=sysdate where seq
 update board set hit=hit+1 where seq=#{seq}
 </update>
 
-<select id="listSearch" parameterType="java.util.Map" resultType="board">
-select * from board where
-<if test="selected == 'all'">
-subject like '%'||#{textContent}||'%' OR content like '%'||#{textContent}||'%'
-</if>
-<if test="selected == 'subject'">
-subject like '%'||#{textContent}||'%'
-</if>
-<if test="selected == 'writer'">
-id like '%'||#{textContent}||'%'
-</if>
-</select>
 
 </mapper>

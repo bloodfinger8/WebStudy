@@ -19,13 +19,14 @@ public class BoardViewAction implements CommandProcess {
 		int seq = Integer.parseInt(request.getParameter("seq"));
 		int pg = Integer.parseInt(request.getParameter("pg"));
 		String boardId = null;
-		BoardDTO boardDTO = new BoardDTO();
 		
 		HttpSession session = request.getSession();
 		String id = (String)session.getAttribute("memId");
-
+		
 		BoardDAO boardDAO = BoardDAO.getInstance();
 		
+		
+		//쿠키삭제
 		Cookie[] ar = request.getCookies();
 		if(ar!=null){
 			for(int i =0; i<ar.length; i++){
@@ -36,7 +37,8 @@ public class BoardViewAction implements CommandProcess {
 				}
 			}
 		}
-		boardDTO = boardDAO.seletedListInfo(seq);
+		//증가시키고 조회수 값을 가져온다
+		BoardDTO boardDTO = boardDAO.seletedListInfo(seq);
 		
 		request.setAttribute("pg", pg);
 		request.setAttribute("boardDTO", boardDTO);

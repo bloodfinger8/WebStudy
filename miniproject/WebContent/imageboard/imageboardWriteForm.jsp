@@ -7,7 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-<form name="imageboardWriteForm" method="post" action="/miniproject/imageboard/imageboardWrite.do">
+<form name="imageboardWriteForm" method="post" enctype="multipart/form-data" action="/miniproject/imageboard/imageboardWrite.do">
 	<table border="1" cellspacing="0" cellpadding="5">
 			<tr>
 				<th>상품코드</th>

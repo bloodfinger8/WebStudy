@@ -5,7 +5,7 @@
 <c:if test="${su eq '1'}">
 	${su }건 회원등록 되었습니다.
 	<br><br>
-	<input type="button" value="로그인" onclick=location.href='loginForm.do'>
+	<input type="button" value="로그인" onclick=location.href='/miniproject/main/index.do'>
 </c:if>
 
 <c:if test="${su ne '1'} ">
