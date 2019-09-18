@@ -25,7 +25,9 @@ public class BoardListAction implements CommandProcess {
 		int startNum = endNum - 4;
 		String textContent = request.getParameter("textContent");
 		String selected = request.getParameter("selected");
-		System.out.println("***textContent : " + textContent + ", selected : " + selected);
+		
+		HttpSession session = request.getSession();
+		String memId = (String) session.getAttribute("memId");
 		
 		//DB
 		BoardDAO boardDAO = BoardDAO.getInstance();
@@ -47,8 +49,7 @@ public class BoardListAction implements CommandProcess {
 
 		//조회수 - 새로고침 방지
 		//쿠키 생성
-		HttpSession session = request.getSession();
-		if(session.getAttribute("memId") != null) {
+		if(memId != null) {
 			Cookie cookie = new Cookie("memHit","0");
 			cookie.setMaxAge(30*60);
 			response.addCookie(cookie);
@@ -57,6 +58,7 @@ public class BoardListAction implements CommandProcess {
 		request.setAttribute("list", list);
 		request.setAttribute("boardPaging", boardPaging);
 		request.setAttribute("pg", pg);
+		request.setAttribute("memId", memId);
 		
 		request.setAttribute("display","/board/boardList.jsp");
 		 

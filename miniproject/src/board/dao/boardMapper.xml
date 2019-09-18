@@ -39,7 +39,7 @@ where id like '%'||#{textContent,jdbcType=VARCHAR}||'%'
 </if>
 </select>
 
-<select id="seletedListInfo" parameterType="String" resultType="board">
+<select id="getBoard" parameterType="Integer" resultType="board">
 select * from board where seq = #{seq}
 </select>
 
@@ -51,5 +51,31 @@ update board set subject=#{subject},content=#{content},logtime=sysdate where seq
 update board set hit=hit+1 where seq=#{seq}
 </update>
 
+<update id="boardReply1" parameterType="board">
+update board set step=step+1 where ref=#{ref} and step>#{step}
+</update>
+
+<insert id="boardReply2" parameterType="board">
+insert into board values(seq_board.nextval,#{id},#{name},#{email},#{subject},#{content},#{ref},#{lev},#{step},#{pseq},0,0,sysdate)
+</insert>
+
+<update id="boardReply3" parameterType="Integer">
+update board set reply=reply+1 where seq=#{pseq}
+</update>
+
+<update id="boardDelete1" parameterType="Integer">
+update board set reply=reply-1
+where ref=(select ref from board where seq=#{seq}) and seq=(select pseq from board where seq=#{seq})
+
+</update>
+
+<update id="boardDelete2" parameterType="Integer">
+update board set subject = '[원글이 삭제된 답글]'||subject
+where ref=(select ref from board where seq=#{seq}) and pseq=(select seq from board where seq=#{seq})
+</update>
+
+<delete id="boardDelete3" parameterType="Integer">
+delete from board where seq=${seq}
+</delete>
 
 </mapper>

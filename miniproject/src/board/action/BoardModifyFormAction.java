@@ -18,7 +18,7 @@ public class BoardModifyFormAction implements CommandProcess {
 		
 		BoardDAO boardDAO =  BoardDAO.getInstance();
 		BoardDTO boardDTO = new BoardDTO();
-		boardDTO = boardDAO.seletedListInfo(seq);
+		boardDTO = boardDAO.getBoard(seq);
 		
 		
 		request.setAttribute("pg", pg);

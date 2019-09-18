@@ -38,7 +38,7 @@ public class BoardViewAction implements CommandProcess {
 			}
 		}
 		//증가시키고 조회수 값을 가져온다
-		BoardDTO boardDTO = boardDAO.seletedListInfo(seq);
+		BoardDTO boardDTO = boardDAO.getBoard(seq);
 		
 		request.setAttribute("pg", pg);
 		request.setAttribute("boardDTO", boardDTO);

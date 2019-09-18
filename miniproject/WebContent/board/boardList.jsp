@@ -5,8 +5,8 @@
 <link rel="stylesheet" href="../css/boardList.css">
 
 <c:if test="${list != null }">
-<form name="boardListForm" method="post" action="boardView.do">
-<table border="1" frame="hsides" rules="rows" cellspacing="0" cellpadding="10">
+<form name="boardListForm" method="post" action="/miniproject/board/boardView.do">
+<table border="1"  width="700" frame="hsides" rules="rows" cellspacing="0" cellpadding="15">
 			<tr>
 				<td>글번호</td>
 				<td>제목</td>
@@ -17,7 +17,14 @@
 			<c:forEach items="${list }" var="list">
 			<tr>
 				<td>${list.seq }</td>
-				<td><a href="javascript:void(0)" id="subjectA" onclick="isLogin('${list.id }','${list.seq }',${pg })">${list.subject }</a></td>
+				<td>
+				<c:if test="${list.lev != 0}">
+					<c:forEach var="i" begin="1" end="${list.lev}" step="1">
+					&emsp;&emsp;
+					</c:forEach>
+					<img src="../image/dapgle.gif">
+				</c:if>
+				<a href="javascript:void(0)" id="subjectA" onclick="isLogin('${memId}','${list.seq }',${pg })">${list.subject }</a></td>
 				<td>${list.id }</td>
 				<td>${list.logtime }</td>
 				<td>${list.hit }</td>
@@ -35,7 +42,7 @@
 			</tr>
 	</table>
 	
-	<div style=" padding-top:30px; width: 450px; text-align:center; ">
+	<div style=" padding-top:30px; width: 700px; text-align:center; ">
 	<select name="selected">
 	    <option value="all">제목+내용</option>
 	    <option value="subject">제목</option>

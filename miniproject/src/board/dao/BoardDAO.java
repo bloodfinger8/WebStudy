@@ -62,9 +62,9 @@ public class BoardDAO {
 		return su;
 	}
 	
-	public BoardDTO seletedListInfo(int seq) {
+	public BoardDTO getBoard(int seq) {
 		SqlSession sqlSession = sqlSessionFactory.openSession();
-		BoardDTO boardDTO = sqlSession.selectOne("boardSQL.seletedListInfo", seq+"");
+		BoardDTO boardDTO = sqlSession.selectOne("boardSQL.getBoard", seq);
 		sqlSession.close();
 		
 		return boardDTO;
@@ -96,7 +96,39 @@ public class BoardDAO {
 //	}
 	
 
+	public void boardReply(BoardDTO boardDTO) {
+		BoardDTO pDTO = getBoard(boardDTO.getPseq());
+		SqlSession sqlSession = sqlSessionFactory.openSession();
+		
+		//step update
+		sqlSession.update("boardSQL.boardReply1", pDTO);
+		//insert
+		boardDTO.setRef(pDTO.getRef()); //원글ref
+		boardDTO.setLev(pDTO.getLev()+1);//원글lev + 1 
+		boardDTO.setStep(pDTO.getStep()+1);//원글step + 1
+		sqlSession.insert("boardSQL.boardReply2", boardDTO);
+		//reply update
+		sqlSession.update("boardSQL.boardReply3", boardDTO.getPseq());
+		
+		
+		sqlSession.commit();
+		sqlSession.close();
+		
+	}
 	
+	public void boardDelete(int seq) {
+		SqlSession sqlSession = sqlSessionFactory.openSession();
+		//update
+		sqlSession.update("boardSQL.boardDelete1",seq);
+		//update
+		sqlSession.update("boardSQL.boardDelete2",seq);
+		//delete
+		sqlSession.delete("boardSQL.boardDelete3",seq);
+		
+		sqlSession.commit();
+		sqlSession.close();
+		
+	}
 	
 	
 	

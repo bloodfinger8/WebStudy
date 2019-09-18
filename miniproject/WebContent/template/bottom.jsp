@@ -7,6 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
- <h3><marquee width="auto">bitcamp</marquee></h3>
+ <h3><marquee width="auto"><img src="../image/dog.png" width="80"></marquee></h3>
 </body>
 </html>
