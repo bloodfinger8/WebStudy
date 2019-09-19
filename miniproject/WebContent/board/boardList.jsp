@@ -5,7 +5,6 @@
 <link rel="stylesheet" href="../css/boardList.css">
 
 <c:if test="${list != null }">
-<form name="boardListForm" method="post" action="/miniproject/board/boardView.do">
 <table border="1"  width="700" frame="hsides" rules="rows" cellspacing="0" cellpadding="15">
 			<tr>
 				<td>글번호</td>
@@ -16,7 +15,11 @@
 			</tr>
 			<c:forEach items="${list }" var="list">
 			<tr>
-				<td>${list.seq }</td>
+				<td>
+				<c:if test="${list.lev == 0}">
+				${list.seq }
+				</c:if>
+				</td>
 				<td>
 				<c:if test="${list.lev != 0}">
 					<c:forEach var="i" begin="1" end="${list.lev}" step="1">
@@ -24,33 +27,50 @@
 					</c:forEach>
 					<img src="../image/dapgle.gif">
 				</c:if>
-				<a href="javascript:void(0)" id="subjectA" onclick="isLogin('${memId}','${list.seq }',${pg })">${list.subject }</a></td>
+				<a href="javascript:void(0)" id="subjectA" onclick="isLogin(${list.seq },${pg })">${list.subject }</a></td>
 				<td>${list.id }</td>
 				<td>${list.logtime }</td>
 				<td>${list.hit }</td>
 			</tr>
 			</c:forEach>
 			
-			<!-- <tr>
-			<td colspan="5"><input type="button" value="글쓰기" onclick="location.href='boardWriteForm.jsp'"> </td>
-			</tr> -->
-			
-			<tr >
+			<tr>
 			<td colspan="5" align="center" id="paging">
 			${boardPaging.pagingHTML }
 			</td> 
 			</tr>
 	</table>
-	
+	</c:if>
+
+<form name="" method="post" action="/miniproject/board/boardSearch.do">	
 	<div style=" padding-top:30px; width: 700px; text-align:center; ">
-	<select name="selected">
+	<input type="hidden" name="pg" value="1">
+	<select name="searchOption" id="searchOption">
 	    <option value="all">제목+내용</option>
 	    <option value="subject">제목</option>
-	    <option value="writer">글작성자</option>
+	    <option value="id">글작성자</option>
 	</select>
-	<input type="text" id="textContent" placeholder="검색어를 입력해주세요">
-	<input type="button" value="검색" onclick="searchList()">
+	<input type="text"  name="keyword" value="${keyword }" placeholder="검색어를 입력해주세요">
+	<input type="submit" value="검색">
 	</div>
 </form>
-</c:if>
-<script src="../js/board.js" type="text/javascript"> </script>
+
+<script type="text/javascript">
+function isLogin(seq, pg){
+	if("${memId}"=="")
+		alert("먼저 로그인하세요");
+	else
+		location.href="/miniproject/board/boardView.do?seq="+seq+"&pg="+pg;		
+}
+
+window.onload=function(){
+	if('${searchOption}'=='subject' || '${searchOption}'=='id')
+		document.getElementById('searchOption').value = '${searchOption}';
+}
+
+function boardSearch(pg){
+	location.href="/miniproject/board/boardSearch.do?pg="+pg
+			+"&searchOption=${searchOption}"
+			+"&keyword=${keyword}";
+}
+</script>

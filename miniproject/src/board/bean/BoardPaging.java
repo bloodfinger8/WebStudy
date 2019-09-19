@@ -68,7 +68,7 @@ public class BoardPaging {
 		}
 	}
 	
-	public void makePagingHTML2() { //[1][2][3][다음] or [이전][4][5][6][다음] or [이전][7][8]
+	public void makeSearchPagingHTML() { //[1][2][3][다음] or [이전][4][5][6][다음] or [이전][7][8]
 		pagingHTML = new StringBuffer();
 		
 		//총 페이지수
@@ -84,17 +84,17 @@ public class BoardPaging {
 		}
 		
 		if(startPage>pageBlock) {
-			pagingHTML.append("[<a id='paging' href='imageboardList.do?pg=" +(startPage-1)+"'>이전</a>]");
+			pagingHTML.append("[<a href='#' id='paging' onclick='boardSearch("+(startPage-1)+")'>이전</a>]");
 		}
 		for(int i =startPage; i<=endPage; i++) {
 			if(i == currentPage) {
-				pagingHTML.append("[<a id='currentPaging' href='imageboardList.do?pg="+i+"'>"+ i + "</a>]");
+				pagingHTML.append("[<a href='#' id='currentPaging' onclick='boardSearch.do?pg="+i+"'>"+ i + "</a>]");
 			}else {
-				pagingHTML.append("[<a id='paging' href='imageboardList.do?pg="+i+"'>"+ i + "</a>]");
+				pagingHTML.append("[<a href='#' id='paging' onclick='boardSearch("+i+")'>"+ i + "</a>]");
 			}
 		}
 		if(endPage < totalP) {
-			pagingHTML.append("[<a id='paging' href='imageboardList.do?pg=" +(endPage+1)+"'>다음</a>]");
+			pagingHTML.append("[<a href='#' id='paging' onclick='boardSearch("+(endPage+1)+")'>다음</a>]");
 		}
 	}
 }

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <table border="1" frame="hsides" rules="none" cellspacing="0" cellpadding="10">
 			<tr>
@@ -10,6 +11,7 @@
 			
 			<tr>
 				<td>단가</td>
+				<%-- <fmt:formatNumber value="${list.imagePrice}" pattern="#,###,###"/> --%>
 				<td><input type="text" value="${imageboardDTO.imagePrice}" ></td>
 			</tr>
 			<tr>

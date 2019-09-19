@@ -44,7 +44,7 @@ public class BoardDAO {
 	}
 	
 	
-	public List<BoardDTO> writeAll(Map<String, Object> map){
+	public List<BoardDTO> writeAll(Map<String, Integer> map){
 		SqlSession sqlSession = sqlSessionFactory.openSession();
 		List<BoardDTO> list =sqlSession.selectList("boardSQL.writeAll", map);
 		sqlSession.close();
@@ -54,9 +54,9 @@ public class BoardDAO {
 	
 	
 	
-	public int getTotalA(Map<String, Object> map) {
+	public int getTotalA() {
 		SqlSession sqlSession = sqlSessionFactory.openSession();
-		int su = sqlSession.selectOne("boardSQL.getTotalA",map);
+		int su = sqlSession.selectOne("boardSQL.getTotalA");
 		sqlSession.close();
 		
 		return su;
@@ -118,16 +118,30 @@ public class BoardDAO {
 	
 	public void boardDelete(int seq) {
 		SqlSession sqlSession = sqlSessionFactory.openSession();
-		//update
-		sqlSession.update("boardSQL.boardDelete1",seq);
-		//update
-		sqlSession.update("boardSQL.boardDelete2",seq);
-		//delete
-		sqlSession.delete("boardSQL.boardDelete3",seq);
+//		sqlSession.update("boardSQL.boardDelete1",seq);
+//		sqlSession.update("boardSQL.boardDelete2",seq);
+//		sqlSession.delete("boardSQL.boardDelete3",seq);
 		
+		//한줄로 축약가능
+		sqlSession.delete("boardSQL.boardDelete",seq);
 		sqlSession.commit();
 		sqlSession.close();
 		
+	}
+
+	public List<BoardDTO> boardSearch(Map<String, String> map) {
+		SqlSession sqlSession = sqlSessionFactory.openSession();
+		List<BoardDTO> list = sqlSession.selectList("boardSQL.boardSearch",map);
+		sqlSession.close();
+		
+		return list;
+	}
+
+	public int getSearchTotalA(Map<String, String> map) {
+		SqlSession sqlSession = sqlSessionFactory.openSession();
+		int su = sqlSession.selectOne("boardSQL.getSearchTotalA",map);
+		sqlSession.close();
+		return su;
 	}
 	
 	

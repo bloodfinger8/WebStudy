@@ -25,4 +25,9 @@ select count(*) from imageboard
 select * from imageboard where seq = #{seq}
 </select>
 
+<delete id="imageboardDelete" parameterType="Integer">
+delete from imageboard where seq = #{seq}
+</delete>
+
+
 </mapper>

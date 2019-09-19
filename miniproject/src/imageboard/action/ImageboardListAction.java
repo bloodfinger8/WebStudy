@@ -37,13 +37,13 @@ public class ImageboardListAction implements CommandProcess {
 		boardPaging.setPageBlock(3);
 		boardPaging.setPageSize(3);
 		boardPaging.setTotalA(su);
-		boardPaging.makePagingHTML2(); //새로운 함수를 생성
+		//boardPaging.makePagingHTML2(); //새로운 함수를 생성
 		
 		
 		request.setAttribute("list", list);
 		request.setAttribute("pg", pg);
 		request.setAttribute("memId", memId);
-		request.setAttribute("boardPaging", boardPaging);
+		//request.setAttribute("boardPaging", boardPaging);
 		
 		request.setAttribute("display","/imageboard/imageboardList.jsp");
 		 
