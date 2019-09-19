@@ -30,10 +30,10 @@ public class BoardSearchAction implements CommandProcess {
 		map.put("endNum", endNum+"");
 		map.put("searchOption", searchOption);
 		map.put("keyword",keyword);
-		System.out.println("*********map" + map);
+		
 		BoardDAO boardDAO = BoardDAO.getInstance();
 		List<BoardDTO> list = boardDAO.boardSearch(map);
-		System.out.println("*********list" + list);
+		
 		BoardPaging boardPaging = new BoardPaging();
 		int totalA = boardDAO.getSearchTotalA(map);//총글수
 		boardPaging.setCurrentPage(pg);

@@ -59,7 +59,7 @@ function checkAll(){
 function selectedDelete(){
 	var ck = 0;
 	var si = document.Element
-	for(i=0; i < document.getElementsByName("mycheck").length; i++) {
+	for(var i=0; i < document.getElementsByName("mycheck").length; i++) {
 		if(document.getElementsByName("mycheck")[i].checked){
 			ck = ck +1;
 		}
@@ -71,7 +71,7 @@ function selectedDelete(){
 	}else{
 		var jbResult = confirm( '정말로 삭제하시겠습니까?' );
 		if(jbResult){
-			for(i=0; i < document.getElementsByName("mycheck").length; i++) {
+			for(var i=0; i < document.getElementsByName("mycheck").length; i++) {
 				if(document.getElementsByName("mycheck")[i].checked){
 					var seq =document.getElementsByName("mycheck")[i].value
 					location.href='/miniproject/imageboard/imageboardDelete.do?seq='+seq;

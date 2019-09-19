@@ -67,21 +67,32 @@ end;
 </delete>
 
 <select id="boardSearch" parameterType="java.util.Map" resultType="board">
-<![CDATA[
+	
 			select * from
 			(select rownum rn, tt.* from
 			(select seq,id,name,email,subject,content,
 			        ref,lev,step,pseq,reply,hit, 
 			        to_char(logtime, 'YYYY.MM.DD') as logtime 
 			 from board
+			 <if test="searchOption == 'all'">
+			 where subject like '%'||#{keyword}||'%' or content like '%'||#{keyword}||'%'
+			 </if>
+			 <if test="searchOption != 'all'">
 			 where ${searchOption} like '%'||#{keyword}||'%'
+			 </if>
 			 order by ref desc, step asc)tt 
-			)where rn>=#{startNum} and rn<=#{endNum}
-		]]>
+			)where rn>=#{startNum} and rn<![CDATA[<=]]>#{endNum}
+		
 </select>
 
 <select id="getSearchTotalA" parameterType="java.util.Map" resultType="Integer">
-select count(*) from board where ${searchOption} like '%'||#{keyword}||'%'
+select count(*) from board 
+<if test="searchOption == 'all'">
+ where subject like '%'||#{keyword}||'%' or content like '%'||#{keyword}||'%'
+</if>
+ <if test="searchOption != 'all'">
+ where ${searchOption} like '%'||#{keyword}||'%'
+</if>
 </select>
 
 </mapper>

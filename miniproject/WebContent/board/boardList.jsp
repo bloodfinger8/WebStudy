@@ -27,7 +27,7 @@
 					</c:forEach>
 					<img src="../image/dapgle.gif">
 				</c:if>
-				<a href="javascript:void(0)" id="subjectA" onclick="isLogin(${list.seq },${pg })">${list.subject }</a></td>
+				<a href="javascript:void(0)" id="subjectA" onclick="isLogin(${list.seq},${pg })">${list.subject }</a></td>
 				<td>${list.id }</td>
 				<td>${list.logtime }</td>
 				<td>${list.hit }</td>
@@ -64,7 +64,7 @@ function isLogin(seq, pg){
 }
 
 window.onload=function(){
-	if('${searchOption}'=='subject' || '${searchOption}'=='id')
+	if('${searchOption}'=='subject' || '${searchOption}'=='id'||'${searchOption}'=='all')
 		document.getElementById('searchOption').value = '${searchOption}';
 }
 
