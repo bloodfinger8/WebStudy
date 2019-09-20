@@ -63,7 +63,7 @@ function isLogin(seq, pg){
 		location.href="/miniproject/board/boardView.do?seq="+seq+"&pg="+pg;		
 }
 
-window.onload=function(){
+window.onload=function(){ //선택된 값 유지
 	if('${searchOption}'=='subject' || '${searchOption}'=='id'||'${searchOption}'=='all')
 		document.getElementById('searchOption').value = '${searchOption}';
 }

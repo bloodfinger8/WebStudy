@@ -13,6 +13,7 @@ import com.control.CommandProcess;
 
 import board.bean.BoardPaging;
 import imageboard.bean.ImageboardDTO;
+import imageboard.bean.ImageboardPaging;
 import imageboard.dao.ImageboardDAO;
 
 public class ImageboardListAction implements CommandProcess {
@@ -31,19 +32,19 @@ public class ImageboardListAction implements CommandProcess {
 		map.put("endNum", endNum);
 		List<ImageboardDTO> list = imageboardDAO.writeAll(map);
 		//페이징 처리
-		BoardPaging boardPaging = new BoardPaging();
-		int su = imageboardDAO.getTotalA(); //총 글수
-		boardPaging.setCurrentPage(pg);
-		boardPaging.setPageBlock(3);
-		boardPaging.setPageSize(3);
-		boardPaging.setTotalA(su);
-		//boardPaging.makePagingHTML2(); //새로운 함수를 생성
+		ImageboardPaging imageboardPaging = new ImageboardPaging();
+		int su = imageboardDAO.getImageboardTotalA(); //총 글수
+		imageboardPaging.setCurrentPage(pg);
+		imageboardPaging.setPageBlock(3);
+		imageboardPaging.setPageSize(3);
+		imageboardPaging.setTotalA(su);
+		imageboardPaging.makePagingHTML();
 		
 		
 		request.setAttribute("list", list);
 		request.setAttribute("pg", pg);
 		request.setAttribute("memId", memId);
-		//request.setAttribute("boardPaging", boardPaging);
+		request.setAttribute("imageboardPaging", imageboardPaging);
 		
 		request.setAttribute("display","/imageboard/imageboardList.jsp");
 		 

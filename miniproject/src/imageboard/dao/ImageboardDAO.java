@@ -2,6 +2,7 @@ package imageboard.dao;
 
 import java.io.IOException;
 import java.io.Reader;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -69,12 +70,21 @@ public class ImageboardDAO {
 		return imageboardDTO;
 	}
 
-	public void imageboardDelete(int seq) {
+	public void imageboardDelete(String[] seq) {
 		SqlSession sqlSession = sqlSessionFactory.openSession();
-		sqlSession.delete("imageboardSQL.imageboardDelete", seq);
+		Map<String, String[]> map = new HashMap<String, String[]>(); //배열을 담아서 보내기 위해 사용한다.
+		map.put("seq", seq);
+		sqlSession.delete("imageboardSQL.imageboardDelete", map);
 		sqlSession.commit();
 		sqlSession.close();
 	}
 	
+	public int getImageboardTotalA() {
+		SqlSession sqlSession = sqlSessionFactory.openSession();
+		int totalA = sqlSession.selectOne("imageboardSQL.getImageboardTotalA");
+		sqlSession.close();
+		
+		return totalA;
+	}
 	
 }
