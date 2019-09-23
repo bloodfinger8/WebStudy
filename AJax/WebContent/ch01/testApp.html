@@ -19,11 +19,13 @@
 		<td colspan="2" align="center"><input type="button" value="보내기" onclick="testToServer()"></td>
 		</tr>
 	</table>
+	<div id="info"></div>
 </form>
 </body>
 
 <script type="text/javascript">
 var xhr = null;
+
 function testToServer(){
 	name = encodeURIComponent(document.testForm.name.value);
 	birth = encodeURIComponent(document.testForm.birth.value);
@@ -41,6 +43,7 @@ function testFromServer(){
 	if(xhr.readyState==4){
 		if(xhr.status==200){
 			alert(xhr.responseText);
+			document.querySelector("#info").innerHTML = xhr.responseText;
 		}
 	}
 }

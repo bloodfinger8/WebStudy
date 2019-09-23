@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>jQuery03_event</title>
+</head>
+<body>
+<button id="btn1">slideUp</button>
+<button id="btn2">slideDown</button>&nbsp;&nbsp;&nbsp;
+
+<button id="btn3">fadeIn</button>
+<button id="btn4">fadeOut</button>&nbsp;&nbsp;&nbsp;
+
+<button id="btn5">slide toggle</button>
+<button id="btn6">fade toggle</button>
+<button id="btn7">toggle</button>
+
+<p>image</p>
+<img src="../image/dog.png" width="300" height="300">
+
+</body>
+<script type="text/javascript" src="../js/jquery-3.4.1.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	$('#btn1').click(function(){
+		$('img').slideUp(1000);
+	});
+	$('#btn2').click(function(){
+		$('img').slideDown(1000);
+	});
+	
+	$('#btn3').bind('click',function(){
+		$('img').fadeIn(1000);
+	});
+	$('#btn4').bind('click',function(){
+		$('img').fadeOut(1000);
+	});
+	
+	$('#btn5').bind('click',function(){
+		$('img').slideToggle(1000);
+	});
+	$('#btn6').bind('click',function(){
+		$('img').fadeToggle(1000);
+	});
+	$('#btn7').bind('click',function(){
+		$('img').toggle(1000);
+	});
+});
+</script>
+</html>

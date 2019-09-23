@@ -7,7 +7,8 @@
 <body>
 <form name="inputForm" method="post" action="">
 	<input type="text" name="name">
-	<input type="button" value="입력" onclick="helloToServer()">
+	<input type="button" value="입력" onclick="helloToServer()"><br>
+	<div style="color:red;" id="nameCheck"></div>
 </form>
 </body>
 
@@ -28,7 +29,7 @@ function helloToServer(){
 function helloFromServer(){
 	if(xhr.readyState==4){
 		if(xhr.status==200){
-			alert(xhr.responseText);
+			document.querySelector("#nameCheck").innerHTML = xhr.responseText;
 		}
 	}
 }
