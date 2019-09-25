@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style type="text/css">
+body{
+	margin: 0px;
+	padding: 0px;
+}
+.jbTitle{
+	text-align: center;
+}
+.jbMenu{
+	text-align: center;
+	background-color: yellow;
+	padding: 10px 0px;
+	width: 100%;
+}
+.jbContent{
+	height: 2000px;
+	border: 4px solid red;
+	
+}
+.jbFixed{
+	 /*position: sticky; sticky를 하면 부드럽지만 크롬만 된다. */
+	position: fixed;
+	top: 0px;
+}
+
+
+</style>
+</head>
+<body>
+<div class="jbTitle">
+	<h1>Site Title</h1>
+</div>
+<div class="jbMenu">
+	<p>
+		first menu
+		second menu
+		third menu
+		fourth menu
+	</p>
+</div>
+<div class="jbContent">
+가나다<br>
+123<br>
+abc<br>
+가나다<br>
+123<br>
+abc<br>
+가나다<br>
+123<br>
+abc<br>
+<div class="jbText"></div>
+</div>
+
+</body>
+<script type="text/javascript" src="../js/jquery-3.4.1.min.js"></script>
+<script type="text/javascript">
+/* $(function() {
+    var $jbMenu = $('.jbMenu'),
+        $jbContent = $('.jbContent');
+
+    var posY = $jbMenu.offset().top;
+
+    $(window).scroll(function(e) {
+        var top = $(document).scrollTop();
+        if (posY-15 < top) {
+            $jbContent.css({ marginTop: $jbMenu.outerHeight(true) });
+            $jbMenu.addClass('jbFixed');
+        } else {
+            $jbContent.css({ marginTop: "0" });
+            $jbMenu.removeClass('jbFixed');
+        }
+    });
+}); */
+$(document).ready(function(){
+	var jbOffset = $('.jbMenu').offset();
+	alert(jbOffset.top + ', '+ jbOffset.left )
+	
+	$(window).scroll(function(){
+		if($(document).scrollTop() > jbOffset.top){
+			$('.jbMenu').addClass('jbFixed');
+		}else{
+			$('.jbMenu').removeClass('jbFixed');
+		}
+		/* 특정위치를 넘어가게되면 텍스트 출력
+		if($(document).scrollTop() > 120){
+			$('.jbText').text('ggggg');
+		}else{
+			$('.jbText').empty();
+		}
+		*/
+	});
+}); 
+</script>
+</html>

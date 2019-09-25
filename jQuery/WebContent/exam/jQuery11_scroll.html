@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style type="text/css">
+.jbBox{
+	height:2000px;
+}
+.jbColor{
+	background-color: orange;
+}
+</style>
+</head>
+<body>
+<div class="jbBox"></div>
+</body>
+<script type="text/javascript" src="../js/jquery-3.4.1.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	$(window).scroll(function(){
+		$('.jbBox').addClass('jbColor');
+	});
+});
+</script>
+<!-- 
+.scroll() : 선택한 객체가 스크롤 이벤트
+ -->
+</html>
