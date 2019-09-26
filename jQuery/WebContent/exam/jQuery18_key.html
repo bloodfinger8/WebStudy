@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<p>키보드 이벤트 발생</p>
+<h1>0/50</h1>
+<textarea rows="5" cols="70"></textarea>
+</body>
+<script type="text/javascript" src="../js/jquery-3.4.1.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	$('textarea').keyup(function(){
+		/* console.log('나온다'); 이걸로 특수키 확인해라*/
+		var len = $(this).val().length;
+		
+		$('h1').html(len+'/50');
+		if(len>50){
+			$('h1').css('color','red');
+		}else{
+			$('h1').css('color','blue');
+		}
+	});
+});
+</script>
+
+<!-- 
+
+keydown : 키보드가 눌러지는 순간 발생
+ 특수키 인식 
+ 대소문자 구별 불가
+ keypress : 글자가 입력될때 발생 
+ 한글 안됨 /특수키 인식 불가(ctrl shift alt)
+ 대소문자 구별 가능
+ keyup : 입력후 손가락이 떼어질때 발생
+ 	keydown과 같다
+ -->
+</html>

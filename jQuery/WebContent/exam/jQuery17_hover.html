@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style type="text/css">
+p{
+	margin: 9px;
+	font-size: 16px;
+	color:blue;
+}
+
+.highlight{
+	background-color: yellow;
+	color: red;
+}
+
+</style>
+</head>
+<body>
+<p>java</p>
+<p>jquery</p>
+<p>ajax</p>
+</body>
+<script type="text/javascript" src="../js/jquery-3.4.1.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	 $('p').hover(function(){
+		$(this).addClass('highlight');
+	},function(){
+		$(this).removeClass('highlight');
+	});
+	/* 방법2
+	 $('p').mouseenter(function(){
+		$(this).addClass('highlight');
+	}).mouseleave(function(){
+		$(this).removeClass('highlight');
+	});  */
+});
+</script>
+<!-- 
+$(선택자).hover(handlerIn, handlerOut)
+$(선택자).mouseenter(handlerIn).mouseleave(handlerOut)
+ -->
+</html>

@@ -1,0 +1,43 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<div id="demo2">
+	<button>add</button>
+	<ul>
+		<li>test1</li>
+		<li>test2</li>
+		<li>test3</li>
+	</ul>
+</div>
+</body>
+<script type="text/javascript" src="../js/jquery-3.4.1.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	$('#demo2 li').bind('click',function(){
+		alert($(this).text());
+	});
+	/* -비동적
+	$('#demo2 button').bind('click',function(){
+		var length = $('li').length+1;
+		$('#demo2 ul').append('<li> test' +length+'</li>')
+	});
+	 나중에 추가된 li에는 클릭이벤트 처리가 안된다..... */
+	
+	 /* 동적처리 */
+	 $('#demo2 button').bind('click',function(){
+		 var length = $('li').length+1;
+		 $('#demo2 ul').unbind('click');
+		 $('#demo2 ul').append('<li> test' +length+'</li>').find($('#demo2 li')).click(function(){
+			 alert($(this).text());
+		 });
+	 });
+	 
+	
+});
+</script>
+</html>
