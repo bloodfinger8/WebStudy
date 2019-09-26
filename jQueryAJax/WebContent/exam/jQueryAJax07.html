@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<form>
+	이름 : <input type="text" name="name"><br>
+	취미 : <input type="checkbox" name="hobby" value="climb">등산
+		  <input type="checkbox" name="hobby" value="fishing">낚시
+		  <input type="checkbox" name="hobby" value="travel">여행
+	<br><br>
+	<input type="button" id="show" value="등록">
+	<input type="reset" value="초기화">
+</form>
+
+<div id="result"></div>
+</body>
+<script type="text/javascript" src="../js/jquery-3.4.1.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	$('#show').click(function(){
+		var str = $('form').serialize();
+		$('#result').text(decodeURIComponent(str));
+	});
+});
+</script>
+</html>
+
+
+<!-- 
+serivalize() : 데이타를을 하나의 문자형태로 전송(queryString)
+ex)id=abc&pwd=1234
+ -->
